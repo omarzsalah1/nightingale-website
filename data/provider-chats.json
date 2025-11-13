@@ -1,0 +1,92 @@
+[
+  {
+    "id": "provider_er_deescalation_postop_bruising",
+    "label": "ER De‑escalation — Post‑op concern",
+    "audio": "",
+    "dialog": [
+      ["provider","Florence, quick consult. Lisa M., 66, day 3 post‑arthroscopy. Reports spreading purple discoloration around the portal site and a temp of 99.6°F. She wants to go to the ER. Let's triage and try to keep her home if safe."],
+      ["florence","On it. I’ll start red‑flag screening: severe, unrelenting pain not relieved by medication? Active bleeding soaking dressings? Foul drainage? Fever ≥101.5°F? Calf swelling/tenderness? Chest pain or shortness of breath?"],
+      ["provider","Pain is 4/10, better after acetaminophen. No soak‑through, just dried spotting yesterday. No odor. Temp peaked 99.6°F. No calf symptoms, no chest pain or dyspnea."],
+      ["florence","Good. Next: wound look—edges approximated? Any warmth beyond 2 inches from incision, streaking redness, or firm expanding lump? Mobility?"],
+      ["provider","Husband says edges closed, mild yellow‑purple ecchymosis extending 3 inches—no red streaks. Slight warmth close to site. She can bend to 80°, weight‑bearing with cane."],
+      ["florence","Findings fit normal post‑op bruising/seroma evolution vs infection. I’ll reassure, give home care, and place a next‑day nurse check. Will you allow an on‑call backup if her temp rises overnight?"],
+      ["provider","Yes—nurse callback if ≥100.4°F or if pain jumps ≥2 points. Document that. Also reinforce elevation/ice intervals."],
+      ["florence","Understood. Calling Lisa now…"],
+      ["florence","UPDATE: I explained bruising is expected as blood tracks under the skin. Reviewed: elevate knee above heart, ice 15–20 min every 2–3 h, keep dressing dry, acetaminophen as prescribed, no NSAIDs unless your surgeon okayed."],
+      ["provider","Did you set a symptom watch list?"],
+      ["florence","Yes. Go to ER if: fever ≥101.5°F, rapidly spreading redness (>2 inches per 12 h), foul drainage, inability to bear weight, calf swelling/pain (possible DVT), chest pain or shortness of breath."],
+      ["provider","Good. Add: loosen wrap if toes tingle or turn blue, and keep portal site clean/dry."],
+      ["florence","Added. She feels calmer and agrees to avoid the ER tonight with our plan. I’ll book a virtual wound check for tomorrow 10:30 AM with our RN and message the surgeon’s pool."],
+      ["provider","Book it and send wound‑care PDF to her portal. Also schedule a 48‑hour follow‑up text check‑in."],
+      ["florence","Done: RN visit 10:30 AM booked, surgeon pool notified, education sent, 48‑hour check set. Documented care plan: Home observation, RICE, acetaminophen, ER criteria, callback threshold at 100.4°F."],
+      ["provider","Perfect. Log ‘ED avoided’ reason and time saved. Anything else from her?"],
+      ["florence","She asked about showering. I advised: keep dressing dry; if surgeon allowed, remove outer wrap only; pat dry—no scrubbing—then re‑dress. She acknowledged understanding."],
+      ["provider","Close the loop. If temp hits 100.4–101.4°F, route to nurse triage; ≥101.5°F or systemic symptoms, instruct ER and notify surgeon on‑call."],
+      ["florence","Protocols set and alerts configured. I’ll watch her portal messages and vitals overnight."]
+    ]
+  },
+  {
+    "id": "provider_ankle_sprain_vs_fracture",
+    "label": "Ankle Sprain vs Fracture (Ottawa rules)",
+    "audio": "",
+    "dialog": [
+      ["provider","Florence, triage for Daniel, 58, twisted right ankle stepping off a curb. He’s debating the ER."],
+      ["florence","Red flag screen: gross deformity? Open wound? Numb toes? Pallor or cold foot? Inability to bear weight immediately after injury and now?"],
+      ["provider","No deformity, skin intact, toes warm with cap refill <2s. He hobbled but took 4 steps."],
+      ["florence","Ottawa Ankle Rules: bony tenderness at posterior edge/tip of lateral malleolus (6 cm) or medial malleolus? Midfoot tenderness at navicular or base of 5th metatarsal?"],
+      ["provider","He has tenderness anterior to lateral malleolus, not over the posterior edge/tip; no medial bony tenderness. Midfoot non‑tender, fifth met base OK."],
+      ["florence","Rules suggest X‑ray not strictly required. Likely Grade I–II sprain. I can de‑escalate ER, provide RICE, and book next‑day urgent care to reassess swelling and stability."],
+      ["provider","Do it. Include: rest with protected weight‑bearing, compression wrap how‑to, elevation above heart, 15–20 min ice q2–3h for 48 h, then gentle ROM."],
+      ["florence","Will do. Any med guidance?"],
+      ["provider","Acetaminophen first‑line; if no contraindications, ibuprofen 400 mg with food prn after 24 h. GI/renal cautions apply. Document as patient‑education—not an Rx."],
+      ["florence","Calling Daniel now…"],
+      ["florence","UPDATE: He can localize pain to soft tissue anterior to the lateral malleolus. I taught figure‑8 wrap, instructed elevation/ice. He feels better avoiding the ER tonight."],
+      ["provider","Set strict return precautions: inability to bear weight tomorrow, numbness, rapidly increasing swelling/pain, or any bony‑point tenderness emerging."],
+      ["florence","Added. I also recommended removing the wrap and checking toes hourly tonight for color/tingle. If issues—loosen wrap and call us."],
+      ["provider","Good. Book urgent care 9:30 AM for re‑eval + functional testing. If still unstable after 72 h, consider PT referral."],
+      ["florence","Booked 9:30 AM. Made a note: ‘Probable grade II sprain; Ottawa negative; ER avoided.’ Pushed ankle rehab Phase I PDF to his portal."],
+      ["provider","Close out with a 48‑hour check‑in to confirm pain trend and weight‑bearing status."],
+      ["florence","48‑hour follow‑up set."]
+    ]
+  },
+  {
+    "id": "provider_uri_vs_pneumonia",
+    "label": "Viral URI vs Pneumonia",
+    "audio": "",
+    "dialog": [
+      ["provider","Florence, triage Karen, 72, cough and fever today. She’s worried it’s pneumonia and wants ED."],
+      ["florence","Assess: temp high? rigors? pleuritic chest pain? RR > 22? HR > 100? O2 sat at rest and with walking? Confusion or new weakness?"],
+      ["provider","Home thermometer 100.3°F, no rigors, mild chest tightness with cough, RR 18, HR 88. O2 is 96% at rest, 94% after hallway walk. Mentation normal."],
+      ["florence","Lower-likelihood pneumonia clinically; likely viral URI. I can de‑escalate ER tonight, give home care, and arrange next‑day telehealth + flu/COVID swabs in clinic."],
+      ["provider","Proceed. Emphasize hydration, honey/tea, humidifier, acetaminophen for fever, avoid antibiotics; red flags for ER: sat ≤92%, RR ≥24, pleuritic chest pain, confusion, persistent high fever ≥101.5°F, or worsening dyspnea."],
+      ["florence","Understood. Calling Karen now…"],
+      ["florence","UPDATE: She’s comfortable skipping ER if we monitor. I reviewed ER thresholds and demonstrated pursed‑lip breathing for cough spells. She’s drinking poorly—encouraged 8 oz hourly while awake."],
+      ["provider","Great. Offer virtual visit 9:00 AM and an in‑clinic nurse swab at 10:00 AM. If positive influenza within 48 h onset, we can discuss antivirals given age."],
+      ["florence","Booked both. I’ll send self‑care instructions and a symptom diary. Will you add a standing order for pulse‑ox loaner if her sat dips below 94%?"],
+      ["provider","Yes—pulse‑ox loaner if ≤94%. Delivery tonight if threshold met; otherwise bring one to the clinic tomorrow."],
+      ["florence","Order entered. I set a 3‑hour text check tonight and a 12‑hour morning check. ER reminders embedded if thresholds are hit."],
+      ["provider","Document ‘ER avoided—stable vitals, no red flags’. Close loop with her daughter on file."],
+      ["florence","Daughter notified and appreciative."]
+    ]
+  },
+  {
+    "id": "provider_diabetes_titration",
+    "label": "Diabetes Management — Fasting BG High",
+    "audio": "",
+    "dialog": [
+      ["provider","Florence, diabetes outreach for Harold, 69. Fasting BG 180–210 the last 5 mornings by CGM. Let’s adjust per Dr. Patel’s basal protocol and avoid ED worries."],
+      ["florence","Pulling protocol: ‘If fasting BG >150 for 3 consecutive mornings and no hypoglycemia (<70) events: increase basal insulin by +2 units every 3 days until fasting 100–130, max +10 units without MD review.’ Confirm?"],
+      ["provider","Confirm. First step: +2 units tonight. Reinforce hypo precautions and bedtime snack guidance. Verify no recent lows."],
+      ["florence","CGM review: no lows <70 in 14 days. I’ll call Harold to confirm technique (injection timing, site rotation), diet pattern, and late‑night carbs."],
+      ["florence","UPDATE: He injects at 9 PM, sometimes skips evening protein, late snack includes crackers. No missed doses."],
+      ["provider","Coach: add protein/fiber at dinner, avoid late refined carbs, keep 9 PM dose consistent. Instruct self‑titration +2 units tonight and re‑check in 3 days."],
+      ["florence","Will do. I’ll set CGM alerts at 80 overnight to catch early trend and at 250 for hyperglycemia coaching. Hydration + gentle evening walk added."],
+      ["provider","Add a labs reminder: A1c and CMP in 2 weeks. Also book a pharmacist call to sync meds and an educator session on carb counting."],
+      ["florence","A1c/CMP reminders scheduled; pharmacist call in 48 h; educator next week. I’ll send hypo rescue plan: 15 g fast carbs → recheck in 15 min, repeat if <70; keep glucose tabs bedside."],
+      ["provider","Good. Tell him to message us if fasting still >150 after +6 units total or if any nocturnal lows occur."],
+      ["florence","Documented: escalate to MD review if cumulative +6 units doesn’t achieve goal or any hypo (<70) events occur. Set follow‑up day 3 and day 7."],
+      ["provider","Close out with EHR log: ‘Basal titration initiated per protocol; education reinforced; follow‑ups set.’"],
+      ["florence","Charted and tasks created."]
+    ]
+  }
+]

@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>For Providers – NightingaleMD</title>
+  <meta name="description" content="Florence, the AI Voice Navigator for providers. Post-discharge prevention, protocol-true triage, and clinician-directed conversations." />
+
+  <!-- Brand & fonts -->
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Core site styles already in repo -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="motion.css">
+  <link rel="stylesheet" href="typing.css">
+  <link rel="stylesheet" href="voice-waves.css">
+  <link rel="stylesheet" href="original-styles.css">
+
+  <style>
+    :root{
+      --bg:#0A0F1B; --panel:#0f1626; --panel-2:#121b2f; --ink:#fff; --muted:#8B9DC3;
+      --cyan:#00E5FF; --green:#00FF88; --gold:#FFB800; --red:#FF3366;
+      --bubble-ai:#162234; --bubble-user:#0e3c37; --bubble-provider:#0e3c37;
+      --bubble-text:#e6f5ff; --bubble-text-2:#eafff7;
+      --bezel:#1b2438; --bezel-outline:#1f2a45; --screen:#0c1424;
+      --chip:#152236; --chip-border:rgba(0,229,255,.25);
+      --card-border:rgba(0,229,255,.12);
+      --glow:0 0 40px rgba(0,229,255,.15);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:
+        radial-gradient(1200px 800px at 15% -10%, rgba(0,229,255,.08), transparent 55%),
+        radial-gradient(1000px 600px at 85% 110%, rgba(255,184,0,.06), transparent 55%),
+        var(--bg);
+      color:var(--ink); font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      line-height:1.55; overflow-x:hidden;
+    }
+    h1,h2,h3{font-family:"Space Grotesk", sans-serif; margin:0 0 .5rem}
+    a{color:var(--cyan); text-decoration:none}
+    .wrap{max-width:1200px; margin:0 auto; padding:0 24px}
+
+    /* --- Page-specific additions and safe overrides --- */
+
+    /* Glow on logo like index */
+    .brand-logo {
+      width: 34px; height: 34px; object-fit: contain;
+      filter: drop-shadow(0 0 16px rgba(31,201,200,.65));
+      animation: logoGlow 6s ease-in-out infinite;
+    }
+    @keyframes logoGlow {
+      0% { filter: drop-shadow(0 0 6px rgba(31,201,200,.5)); }
+      50% { filter: drop-shadow(0 0 22px rgba(31,201,200,.9)); }
+      100% { filter: drop-shadow(0 0 6px rgba(31,201,200,.5)); }
+    }
+
+    /* Basic layout helpers used here */
+    .page-wrap {max-width:1200px; margin:0 auto; padding:0 24px;}
+    .hero {padding:140px 0 64px; position:relative;}
+    .hero-grid {display:grid; grid-template-columns: 1.05fr .95fr; gap:40px; align-items:center;}
+    .hero h1 {font-family:"Space Grotesk", sans-serif; font-weight:800; letter-spacing:-.02em; font-size:clamp(40px,4.6vw,72px);}
+    .hero p.lead {color:#9DA7B3; font-size:18px; line-height:1.6; margin-top:14px;}
+    .cta-row {display:flex; flex-wrap:wrap; gap:14px; margin-top:26px;}
+    .btn-primary {background: linear-gradient(90deg,#00E5FF,#00B8D4); color:#071018; font-weight:700; padding:12px 18px; border-radius:999px; border:none;}
+    .btn-ghost {background:transparent; color:#E5F9FF; border:1px solid rgba(0,229,255,.35); padding:12px 18px; border-radius:999px; font-weight:700;}
+
+    /* HERO PHONE */
+    .hero-phone {justify-self:end; position:relative;}
+    .phone-shell {width:360px; max-width:84vw; height:740px; border-radius:32px; padding:16px; background:linear-gradient(180deg,#0c121b,#0b121a); border:2px solid rgba(0,229,255,.18); box-shadow:0 30px 80px rgba(0,0,0,.55);}
+    .phone-bezel {width:100%; height:100%; border-radius:24px; background:#0b131d; position:relative; overflow:hidden;}
+    .phone-bezel:before {content:""; position:absolute; inset:0; background:radial-gradient(120% 60% at 80% 10%, rgba(0,229,255,.06), transparent 60%);}
+    .screen {position:absolute; inset:14px; border-radius:18px; background:#08131b; overflow:auto; padding:14px;}
+    .messages {list-style:none; margin:0; padding:0;}
+    .msg {display:flex; width:100%; margin-bottom:14px;}
+    .msg-bubble {max-width:84%; padding:12px 14px; border-radius:16px; line-height:1.35; font-size:14.5px;}
+    .msg.ai   .msg-bubble {background:rgba(0,229,255,.09); border:1px solid rgba(0,229,255,.25); color:#d8f7ff;}
+    .msg.user .msg-bubble {background:#143021; border:1px solid rgba(0,255,136,.25); color:#d7ffe9; margin-left:auto;}
+    .play-audio {position:absolute; right:18px; bottom:18px; width:44px; height:44px; border-radius:50%; background:rgba(7,16,24,.7); border:1px solid rgba(0,229,255,.35); display:grid; place-items:center;}
+    .play-audio .speaker-icon {width:22px; height:22px}
+
+    /* POST-DISCHARGE TIMELINE */
+    .timeline {padding:80px 0 40px; position:relative;}
+    .timeline h2 {font-family:"Space Grotesk"; font-weight:800; font-size:clamp(32px,3.4vw,52px); text-align:center; margin-bottom:20px;}
+    .savings-badge {position:relative; display:inline-block; background:#ffcc2e; color:#161616; font-weight:800; padding:10px 16px; border-radius:12px; margin:10px auto 22px; box-shadow:0 10px 24px rgba(255,204,46,.3); animation:badgePulse 3.5s ease-in-out infinite; }
+    @keyframes badgePulse {0%,100%{transform:translateY(0); box-shadow:0 10px 24px rgba(255,204,46,.3)}50%{transform:translateY(-3px); box-shadow:0 18px 38px rgba(255,204,46,.45)}}
+    .track {height:4px; max-width:880px; margin:18px auto 26px; background:linear-gradient(90deg, rgba(255,204,46,.25) 0%, rgba(255,204,46,0) 100%); border-radius:999px; position:relative; overflow:hidden;}
+    .track:after {content:""; position:absolute; inset:0; background:linear-gradient(90deg,#ffd54d 0%, #ffc400 70%, rgba(255,196,0,0) 100%); transform:translateX(-100%); animation:flow 5.5s linear infinite;}
+    @keyframes flow {to {transform:translateX(0)}}
+    .timeline-grid {display:grid; grid-template-columns:repeat(4,1fr); gap:18px; max-width:980px; margin:0 auto;}
+    .timeline-card {background:#0b141e; border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:18px; text-align:center; }
+    .timeline-card img {width:46px; height:46px; object-fit:contain; margin:0 auto 10px; opacity:.9}
+    .timeline-card h4 {margin:2px 0 6px; font-weight:800}
+    .timeline-card small {color:#9DA7B3}
+
+    /* ENHANCED TRIAGE ENGINE */
+    .triage{padding:48px 0}
+    .triage h2{font-size:36px; margin-bottom:6px; text-align:center}
+    .triage-sub{color:var(--muted); margin-bottom:32px; text-align:center; max-width:900px; margin-left:auto; margin-right:auto}
+    .te-grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:20px; margin-top:32px}
+    .te-card{position:relative; border:1px solid var(--card-border); border-radius:16px; padding:20px;
+      background:linear-gradient(180deg, rgba(0,229,255,.06), rgba(0,229,255,.03));
+      min-height:180px; overflow:hidden; transition:all 0.3s ease}
+    .te-card:hover{transform:translateY(-4px); border-color:var(--cyan)}
+    .te-card::after{content:""; position:absolute; inset:-2px; pointer-events:none; border-radius:16px;
+      background:conic-gradient(from 0deg at 50% 50%, transparent, rgba(0,229,255,.08), transparent);
+      animation:spin 8s linear infinite; opacity:0.5}
+    @keyframes spin{to{transform:rotate(1turn)}}
+    .te-n{position:absolute; right:12px; top:10px; color:rgba(255,255,255,.07); font-weight:800; font-size:40px; letter-spacing:.02em}
+    .te-title{font-weight:800; margin-bottom:8px; font-size:1.1rem; position:relative; z-index:2}
+    .te-body{color:var(--muted); font-size:0.9rem; margin-bottom:12px; position:relative; z-index:2}
+    .te-tags{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; position:relative; z-index:2}
+    .te-tag{font-size:11px; padding:6px 8px; border-radius:999px; background:#0f1b2d; color:#aee9f6; border:1px solid var(--chip-border)}
+    
+    /* Performance Metrics */
+    .performance-metric{display:flex; align-items:center; gap:8px; margin-top:12px; position:relative; z-index:2}
+    .metric-value{font-weight:700; font-size:1.3rem; color:var(--green)}
+    .metric-delta{color:var(--green); font-size:0.9rem}
+    .status-dot{width:8px; height:8px; background:var(--green); border-radius:50%; animation:status-pulse 2s infinite}
+    @keyframes status-pulse{0%,100%{box-shadow:0 0 0 0 rgba(0,255,136,0.4)}50%{box-shadow:0 0 0 6px rgba(0,255,136,0)}}
+
+    /* PROVIDER CONSOLE */
+    .console{padding:40px 0 10px}
+    .console h2{font-size:40px}
+    .console-sub{color:var(--muted); margin-bottom:24px}
+    .console-grid{display:grid; grid-template-columns:1fr 1.2fr; gap:24px}
+    .card{background:linear-gradient(180deg, var(--panel), var(--panel-2)); border:1px solid var(--card-border);
+      border-radius:18px; padding:18px; box-shadow:var(--glow)}
+    .fs-row{display:flex; flex-wrap:wrap; gap:10px 8px}
+    .pill{padding:7px 10px; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.07); font-size:12px}
+    .pill.warn{background:rgba(255,184,0,.08); border-color:rgba(255,184,0,.25); color:#ffc24d}
+    .fs-title{font-size:18px; font-weight:700; margin:8px 0 6px}
+    .fs-muted{color:var(--muted)}
+    .chathead{display:flex; align-items:center; justify-content:space-between; margin-bottom:8px}
+    .replay{font-size:12px; color:var(--muted); background:transparent; border:1px solid var(--card-border); padding:6px 10px; border-radius:999px; cursor:pointer}
+    .chat-box{height:520px; overflow:auto; padding:6px 8px 8px; border-radius:12px; background:#0c1424; border:1px solid rgba(255,255,255,.05)}
+    .source-bar{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
+    .chip{background:var(--chip); border:1px solid var(--chip-border); color:#9adff1; font-weight:700; font-size:12px; padding:8px 10px; border-radius:999px}
+
+    /* ENHANCED CLINICAL PATHWAYS SECTION */
+    .pathways{padding:48px 0}
+    .pathways h2{font-size:36px; margin-bottom:6px; text-align:center}
+    .pathways-sub{color:var(--muted); margin-bottom:32px; text-align:center; max-width:900px; margin-left:auto; margin-right:auto}
+    .pathways-explainer{background:var(--panel); border:1px solid var(--card-border); border-radius:16px; padding:20px; margin:0 auto 32px; max-width:960px}
+    .pathways-explainer h4{margin:0 0 12px; color:var(--cyan)}
+    .pathways-explainer p{margin:0; color:var(--muted); line-height:1.6}
+    .pathways-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px; margin-bottom:32px}
+    .pathway-card{background:var(--panel); border:1px solid var(--card-border); border-radius:12px; padding:16px; transition:all 0.3s ease; position:relative}
+    .pathway-card:hover{transform:translateY(-2px); border-color:var(--cyan); box-shadow:0 6px 24px rgba(0,229,255,0.1)}
+    .pathway-header{display:flex; align-items:center; gap:10px; margin-bottom:12px}
+    .pathway-icon{width:20px; height:20px; stroke:var(--cyan)}
+    .pathway-name{font-weight:600; flex:1; font-size:0.95rem}
+    .pathway-version{font-size:0.7rem; color:var(--muted); font-family:monospace; background:rgba(0,229,255,0.1); padding:2px 5px; border-radius:3px}
+    .pathway-metrics{display:grid; grid-template-columns:1fr 1fr; gap:12px; text-align:center; margin-bottom:12px}
+    .metric-main{font-size:1.2rem; font-weight:700; color:var(--green)}
+    .metric-label{font-size:0.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.3px}
+    .pathway-details{display:flex; flex-direction:column; gap:4px; margin-bottom:12px}
+    .detail-row{display:flex; justify-content:space-between; font-size:0.75rem; padding:4px 6px; border-radius:4px}
+    .detail-row:nth-child(odd){background:rgba(0,0,0,0.2)}
+    .detail-label{color:var(--muted)}
+    .detail-value{font-weight:500; color:var(--ink)}
+    .pathway-badges{display:flex; gap:6px; padding-top:12px; border-top:1px solid var(--card-border)}
+    .badge-small{font-size:0.65rem; padding:3px 6px; border-radius:8px; font-weight:600}
+    .badge-validated{background:var(--green); color:#000}
+    .badge-ml{background:var(--gold); color:#000}
+
+    /* Chip Grid for Additional Pathways */
+    .chip-grid{display:flex; flex-wrap:wrap; gap:12px; justify-content:center}
+    .chip-pathway{background:var(--chip); border:1px solid var(--chip-border); color:#b5c7de; padding:10px 16px; border-radius:999px; transition:all 0.3s ease}
+    .chip-pathway:hover{border-color:var(--cyan); color:var(--cyan); transform:translateY(-2px)}
+
+    /* CLINICIAN-DIRECTED GALLERY */
+    .gallery{padding:32px 0 80px}
+    .g-head{margin-bottom:14px}
+    .g-sub{color:var(--muted)}
+    .phone-row{display:grid; grid-template-columns:repeat(3, 1fr); gap:26px; align-items:start}
+    .phone-wrap{display:flex; flex-direction:column; gap:12px; align-items:center}
+    .caption h4{margin:0 0 6px; font-size:16px}
+    .caption p{margin:0; color:var(--muted); font-size:13px; text-align:center; max-width:360px}
+
+    /* iPhone mockup (shared) */
+    .iphone{
+      width:360px; max-width:92vw; height:680px; border-radius:42px; margin:0 auto;
+      background:linear-gradient(180deg, var(--bezel), #111a2c);
+      box-shadow:0 18px 60px rgba(0,0,0,.45), 0 0 0 2px var(--bezel-outline) inset, var(--glow);
+      position:relative; padding:14px; display:flex; align-items:stretch; justify-content:center;
+    }
+    .iphone .screen{
+      flex:1; border-radius:28px; background:linear-gradient(180deg, #0b1322, #0a1220);
+      overflow:hidden; box-shadow:inset 0 0 0 1px rgba(255,255,255,.04);
+      display:flex; flex-direction:column; position:relative;
+    }
+    .typing-indicator{display:inline-flex; gap:4px; align-items:center}
+    .typing-indicator span{display:inline-block; width:6px; height:6px; border-radius:50%; background:#94e6ff; opacity:.3; animation:ti 1.2s infinite}
+    .typing-indicator span:nth-child(2){animation-delay:.15s}
+    .typing-indicator span:nth-child(3){animation-delay:.3s}
+    @keyframes ti { 0%,80%,100%{transform:translateY(0); opacity:.25} 40%{transform:translateY(-4px); opacity:.9} }
+
+    .speaker{
+      position:absolute; right:12px; bottom:12px; width:40px; height:40px; border-radius:50%;
+      background:radial-gradient(circle at 35% 35%, rgba(0,229,255,.85), rgba(0,229,255,.45));
+      display:flex; align-items:center; justify-content:center; border:1px solid var(--chip-border);
+      box-shadow:0 10px 30px rgba(0,229,255,.25); cursor:pointer; transition:transform .15s;
+    }
+    .speaker:hover{transform:translateY(-1px)}
+    .speaker svg{width:20px; height:20px; fill:#0a0f1b}
+
+    /* SVG Icons */
+    .icon{display:none}
+
+    /* responsive */
+    @media (max-width:1024px){
+      .hero-grid{grid-template-columns:1fr; gap:36px}
+      .hero-phone {justify-self:center}
+      .console-grid{grid-template-columns:1fr}
+      .te-grid{grid-template-columns:1fr 1fr}
+      .phone-row{grid-template-columns:1fr; gap:32px}
+      .iphone{height:640px}
+      .chat-box{height:480px}
+      .pathways-grid{grid-template-columns:1fr}
+      .timeline-grid {grid-template-columns:repeat(2,1fr);}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- SVG Icons -->
+  <svg class="icon">
+    <defs>
+      <symbol id="icon-hospital" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 6v4"/>
+        <path d="M14 14h-4"/>
+        <path d="M14 18h-4"/>
+        <path d="M14 10h-4"/>
+        <path d="M18 14v4a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-4"/>
+        <path d="M18 14h2a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h2"/>
+      </symbol>
+      <symbol id="icon-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </symbol>
+      <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="m21 21-4.35-4.35"/>
+      </symbol>
+      <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20,6 9,17 4,12"/>
+      </symbol>
+      <symbol id="icon-diabetes" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      </symbol>
+      <symbol id="icon-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </symbol>
+      <symbol id="icon-lungs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2v20"/>
+        <path d="M8 5a4 4 0 0 0-4 4v6a4 4 0 0 0 4 4h1V5H8z"/>
+        <path d="M16 5h-1v14h1a4 4 0 0 0 4-4V9a4 4 0 0 0-4-4z"/>
+      </symbol>
+      <symbol id="icon-stethoscope" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/>
+        <path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"/>
+        <circle cx="20" cy="10" r="2"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- NAV -->
+  <header class="site-nav">
+    <div class="page-wrap" style="display:flex; align-items:center; gap:18px; padding:18px 24px; border-bottom:1px solid rgba(255,255,255,.06); position:sticky; top:0; backdrop-filter:saturate(1.2) blur(8px); background:rgba(6,12,18,.75); z-index:10;">
+      <a href="/" style="display:flex; align-items:center; gap:10px; text-decoration:none;">
+        <img src="nightingale-logo.png" alt="NightingaleMD" class="brand-logo">
+        <strong style="color:#fff; font-family:'Space Grotesk'; letter-spacing:.2px;">NightingaleMD</strong>
+      </a>
+      <nav style="margin-left:auto; display:flex; align-items:center; gap:22px;">
+        <a href="/"               class="nav-link">For Patients</a>
+        <a href="providers.html"  class="nav-link" style="color:#00e5ff;">For Providers</a>
+        <a href="healthplans.html" class="nav-link">For Health Plans</a>
+        <a href="news.html" class="nav-link">News</a>
+        <a class="btn-primary" href="https://calendly.com/nightingalemd" target="_blank" rel="noopener">Try Florence</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="page-wrap hero-grid">
+      <div>
+        <h1>Your patients always<br>have someone to call</h1>
+        <p class="lead">Florence answers immediately, follows your protocols, and escalates to your on‑call team—with a complete longitudinal record in view.</p>
+        <div class="cta-row">
+          <a href="#provider-console" class="btn-primary">See Provider Console</a>
+          <a href="video/florencedemo.mp4" class="btn-ghost">▶ See Florence in Action</a>
+        </div>
+      </div>
+
+      <div class="hero-phone">
+        <div class="phone-shell">
+          <div class="phone-bezel">
+            <div class="screen">
+              <ul id="heroChat" class="messages"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POST-DISCHARGE TIMELINE -->
+  <section class="timeline">
+    <div class="page-wrap">
+      <h2>Post‑discharge: where $15,000 savings happen</h2>
+      <div style="text-align:center;">
+        <div class="savings-badge">$15,000 ED visit prevented</div>
+      </div>
+      <div class="track"></div>
+
+      <div class="timeline-grid">
+        <div class="timeline-card">
+          <img src="icons/cms_dark.png" alt="ADT Alert">
+          <h4>ADT Alert</h4>
+          <small>Instant</small>
+        </div>
+        <div class="timeline-card">
+          <img src="icons/nightingale_sphere_large.png" alt="Florence calls">
+          <h4>Florence calls</h4>
+          <small>≈ 2 hrs</small>
+        </div>
+        <div class="timeline-card">
+          <img src="icons/diagnostic_labs_text_dark.png" alt="Triage assessment">
+          <h4>Triage assessment</h4>
+          <small>≈ 5 min</small>
+        </div>
+        <div class="timeline-card">
+          <img src="icons/lock-icon.svg" alt="Intervention">
+          <h4>Intervention</h4>
+          <small>Instant</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENHANCED TRIAGE ENGINE -->
+  <section class="triage" id="triage">
+    <div class="wrap">
+      <h2>The Florence Triage Engine™</h2>
+      <div class="triage-sub">Four layers of intelligence prevent costly escalations — and surface only what clinicians want to see.</div>
+      <div class="te-grid">
+        <div class="te-card">
+          <div class="te-n">01</div>
+          <div class="te-title">Voice Biomarkers</div>
+          <div class="te-body">Detects urgency through tone, pace, and breathing — not just words.</div>
+          <div class="te-tags">
+            <span class="te-tag">86% accuracy</span>
+            <span class="te-tag">Real‑time</span>
+          </div>
+          <div class="performance-metric">
+            <div class="status-dot"></div>
+            <span class="metric-value" data-target="86.4">86.4%</span>
+            <span class="metric-delta">+2.3%</span>
+          </div>
+        </div>
+        <div class="te-card">
+          <div class="te-n">02</div>
+          <div class="te-title">Complete Longitudinal Record</div>
+          <div class="te-body">Every hospital, specialist, lab, and pharmacy — not just the EMR's 20%.</div>
+          <div class="te-tags">
+            <span class="te-tag">20+ sources</span>
+            <span class="te-tag">Real‑time sync</span>
+          </div>
+          <div class="performance-metric">
+            <div class="status-dot"></div>
+            <span class="metric-value" data-target="23">23</span>
+            <span class="metric-delta">+2</span>
+          </div>
+        </div>
+        <div class="te-card">
+          <div class="te-n">03</div>
+          <div class="te-title">Clinical Decision Pathways</div>
+          <div class="te-body">Evidence‑based protocols for 50+ conditions, customizable to your practice.</div>
+          <div class="te-tags">
+            <span class="te-tag">ADA/ACC/GOLD</span>
+            <span class="te-tag">Custom protocols</span>
+          </div>
+          <div class="performance-metric">
+            <div class="status-dot"></div>
+            <span class="metric-value" data-target="52">52</span>
+            <span class="metric-delta">+3</span>
+          </div>
+        </div>
+        <div class="te-card">
+          <div class="te-n">04</div>
+          <div class="te-title">Intelligent Escalation</div>
+          <div class="te-body">Knows when to educate, when to schedule, and when to escalate to RN/MD.</div>
+          <div class="te-tags">
+            <span class="te-tag">&lt; 30 sec</span>
+            <span class="te-tag">24/7 coverage</span>
+          </div>
+          <div class="performance-metric">
+            <div class="status-dot"></div>
+            <span class="metric-value" data-target="27.3">27.3s</span>
+            <span class="metric-delta">-1.2s</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROVIDER CONSOLE -->
+  <section id="provider-console" class="console">
+    <div class="wrap">
+      <h2>Provider Console: Face Sheet + Chat</h2>
+      <div class="console-sub">What a provider sees when Florence escalates a call — embedded in your EHR.</div>
+
+      <div class="console-grid">
+        <!-- Face sheet -->
+        <div class="card">
+          <div class="fs-title">Patient</div>
+          <div class="fs-row">
+            <span class="pill">Maria Gomez • F • 64 • MRN 004198</span>
+            <span class="pill warn">High‑risk post‑discharge</span>
+          </div>
+
+          <div class="fs-title">Vitals (last 24h)</div>
+          <div class="fs-row fs-muted">
+            <span class="pill">BP 148/82</span><span class="pill">HR 102</span><span class="pill">Temp 99.1°F</span>
+            <span class="pill">Wt 86kg</span><span class="pill">SpO₂ 92%</span>
+          </div>
+
+          <div class="fs-title">Active Problems</div>
+          <div class="fs-row fs-muted">
+            <span class="pill">Diabetes (A1c 9.3)</span><span class="pill">CHF (EF 30%)</span><span class="pill">COPD (GOLD II)</span>
+          </div>
+
+          <div class="fs-title">Meds</div>
+          <div class="fs-row fs-muted">
+            <span class="pill">Metformin</span><span class="pill">Insulin glargine</span><span class="pill">Furosemide</span>
+            <span class="pill">Atorvastatin</span><span class="pill">Tiotropium</span>
+          </div>
+
+          <div class="fs-title">Allergies</div>
+          <div class="fs-row fs-muted">
+            <span class="pill warn" style="color:#ff8f8f;background:rgba(255,51,102,.08);border-color:rgba(255,51,102,.25)">ACE inhibitors</span>
+            <span class="pill">Penicillin</span>
+          </div>
+
+          <div class="fs-title">Recent Events</div>
+          <div class="fs-row fs-muted">
+            <span class="pill">2d ago: DC from St. Joseph's (COPD exacerbation)</span>
+            <span class="pill">Yesterday: Rx picked up (Furosemide 20mg)</span>
+            <span class="pill">Today: Florence call (SOB, ankle edema)</span>
+          </div>
+        </div>
+
+        <!-- Chat + Replay -->
+        <div class="card">
+          <div class="chathead">
+            <div style="font-weight:700">Florence ↔ Provider (typed)</div>
+            <button id="replayConsole" class="replay" type="button">↺ Replay</button>
+          </div>
+          <div id="consoleChat" class="chat-box">
+            <ul class="messages" id="consoleMessages"></ul>
+          </div>
+          <div class="source-bar">
+            <span class="chip">ADT</span><span class="chip">EHR</span><span class="chip">Labs</span>
+            <span class="chip">Pharmacy</span><span class="chip">Home oximeter</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENHANCED CLINICAL PATHWAYS SECTION -->
+  <section class="pathways">
+    <div class="wrap">
+      <h2>50+ Clinical Pathways Built In</h2>
+      <p class="pathways-sub">Evidence‑based protocols from ADA, ACC, GOLD, and more. (Conversational — via voice.)</p>
+
+      <div class="pathways-explainer">
+        <h4>What are Clinical Pathways?</h4>
+        <p>Clinical pathways guide Florence's AI decisions during phone conversations. Each pathway includes red flags, triage questions, self‑care instructions, and clear escalation triggers. Everything happens through natural conversation — Florence works under your protocols, not as a replacement for medical care. <strong>Your patients get consistent, protocol‑driven triage at 2am Sunday</strong> just as they would during office hours.</p>
+      </div>
+
+      <div class="pathways-grid">
+        <!-- Diabetes Pathway -->
+        <div class="pathway-card">
+          <div class="pathway-header">
+            <svg class="pathway-icon"><use href="#icon-diabetes"/></svg>
+            <h4 class="pathway-name">Diabetes Management</h4>
+            <span class="pathway-version">v2.3.1</span>
+          </div>
+          
+          <div class="pathway-metrics">
+            <div>
+              <div class="metric-main">3,247</div>
+              <div class="metric-label">Patients Managed</div>
+            </div>
+            <div>
+              <div class="metric-main">94.3%</div>
+              <div class="metric-label">Adherence Rate</div>
+            </div>
+          </div>
+          
+          <div class="pathway-details">
+            <div class="detail-row">
+              <span class="detail-label">Guidelines:</span>
+              <span class="detail-value">ADA 2024, WHO</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Risk Stratification:</span>
+              <span class="detail-value">5 Levels</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Last Updated:</span>
+              <span class="detail-value">Jan 2025</span>
+            </div>
+          </div>
+          
+          <div class="pathway-badges">
+            <span class="badge-small badge-validated">FDA Validated</span>
+            <span class="badge-small badge-ml">ML-Enhanced</span>
+          </div>
+        </div>
+
+        <!-- CHF Pathway -->
+        <div class="pathway-card">
+          <div class="pathway-header">
+            <svg class="pathway-icon"><use href="#icon-heart"/></svg>
+            <h4 class="pathway-name">Congestive Heart Failure</h4>
+            <span class="pathway-version">v1.8.2</span>
+          </div>
+          
+          <div class="pathway-metrics">
+            <div>
+              <div class="metric-main">1,892</div>
+              <div class="metric-label">Patients Managed</div>
+            </div>
+            <div>
+              <div class="metric-main">91.7%</div>
+              <div class="metric-label">Adherence Rate</div>
+            </div>
+          </div>
+          
+          <div class="pathway-details">
+            <div class="detail-row">
+              <span class="detail-label">Guidelines:</span>
+              <span class="detail-value">ACC/AHA 2024</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Risk Stratification:</span>
+              <span class="detail-value">NYHA Class I-IV</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Last Updated:</span>
+              <span class="detail-value">Dec 2024</span>
+            </div>
+          </div>
+          
+          <div class="pathway-badges">
+            <span class="badge-small badge-validated">FDA Validated</span>
+            <span class="badge-small badge-ml">ML-Enhanced</span>
+          </div>
+        </div>
+
+        <!-- COPD Pathway -->
+        <div class="pathway-card">
+          <div class="pathway-header">
+            <svg class="pathway-icon"><use href="#icon-lungs"/></svg>
+            <h4 class="pathway-name">COPD Management</h4>
+            <span class="pathway-version">v3.1.0</span>
+          </div>
+          
+          <div class="pathway-metrics">
+            <div>
+              <div class="metric-main">2,156</div>
+              <div class="metric-label">Patients Managed</div>
+            </div>
+            <div>
+              <div class="metric-main">88.9%</div>
+              <div class="metric-label">Adherence Rate</div>
+            </div>
+          </div>
+          
+          <div class="pathway-details">
+            <div class="detail-row">
+              <span class="detail-label">Guidelines:</span>
+              <span class="detail-value">GOLD 2024</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Risk Stratification:</span>
+              <span class="detail-value">ABCD Groups</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Last Updated:</span>
+              <span class="detail-value">Jan 2025</span>
+            </div>
+          </div>
+          
+          <div class="pathway-badges">
+            <span class="badge-small badge-validated">FDA Validated</span>
+            <span class="badge-small badge-ml">ML-Enhanced</span>
+          </div>
+        </div>
+
+        <!-- Additional pathways -->
+        <div class="pathway-card">
+          <div class="pathway-header">
+            <svg class="pathway-icon"><use href="#icon-stethoscope"/></svg>
+            <h4 class="pathway-name">Chronic Kidney Disease</h4>
+            <span class="pathway-version">v2.1.3</span>
+          </div>
+          
+          <div class="pathway-metrics">
+            <div>
+              <div class="metric-main">1,534</div>
+              <div class="metric-label">Patients Managed</div>
+            </div>
+            <div>
+              <div class="metric-main">92.1%</div>
+              <div class="metric-label">Adherence Rate</div>
+            </div>
+          </div>
+          
+          <div class="pathway-details">
+            <div class="detail-row">
+              <span class="detail-label">Guidelines:</span>
+              <span class="detail-value">KDIGO 2024</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Risk Stratification:</span>
+              <span class="detail-value">GFR + Albuminuria</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Last Updated:</span>
+              <span class="detail-value">Nov 2024</span>
+            </div>
+          </div>
+          
+          <div class="pathway-badges">
+            <span class="badge-small badge-validated">FDA Validated</span>
+            <span class="badge-small badge-ml">ML-Enhanced</span>
+          </div>
+        </div>
+
+        <div class="pathway-card">
+          <div class="pathway-header">
+            <svg class="pathway-icon"><use href="#icon-heart"/></svg>
+            <h4 class="pathway-name">Hypertension</h4>
+            <span class="pathway-version">v1.9.4</span>
+          </div>
+          
+          <div class="pathway-metrics">
+            <div>
+              <div class="metric-main">4,821</div>
+              <div class="metric-label">Patients Managed</div>
+            </div>
+            <div>
+              <div class="metric-main">96.2%</div>
+              <div class="metric-label">Adherence Rate</div>
+            </div>
+          </div>
+          
+          <div class="pathway-details">
+            <div class="detail-row">
+              <span class="detail-label">Guidelines:</span>
+              <span class="detail-value">AHA/ACC 2024</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Risk Stratification:</span>
+              <span class="detail-value">Stage 1-2, Crisis</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Last Updated:</span>
+              <span class="detail-value">Jan 2025</span>
+            </div>
+          </div>
+          
+          <div class="pathway-badges">
+            <span class="badge-small badge-validated">FDA Validated</span>
+            <span class="badge-small badge-ml">ML-Enhanced</span>
+          </div>
+        </div>
+
+        <div class="pathway-card">
+          <div class="pathway-header">
+            <svg class="pathway-icon"><use href="#icon-stethoscope"/></svg>
+            <h4 class="pathway-name">Post-Surgical Care</h4>
+            <span class="pathway-version">v2.0.1</span>
+          </div>
+          
+          <div class="pathway-metrics">
+            <div>
+              <div class="metric-main">987</div>
+              <div class="metric-label">Patients Managed</div>
+            </div>
+            <div>
+              <div class="metric-main">89.4%</div>
+              <div class="metric-label">Adherence Rate</div>
+            </div>
+          </div>
+          
+          <div class="pathway-details">
+            <div class="detail-row">
+              <span class="detail-label">Guidelines:</span>
+              <span class="detail-value">ERAS Society</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Risk Stratification:</span>
+              <span class="detail-value">ASA I-V</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Last Updated:</span>
+              <span class="detail-value">Dec 2024</span>
+            </div>
+          </div>
+          
+          <div class="pathway-badges">
+            <span class="badge-small badge-validated">FDA Validated</span>
+            <span class="badge-small badge-ml">ML-Enhanced</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="chip-grid">
+        <span class="chip-pathway">Hyperlipidemia</span>
+        <span class="chip-pathway">Asthma</span>
+        <span class="chip-pathway">Depression</span>
+        <span class="chip-pathway">Anxiety</span>
+        <span class="chip-pathway">Back Pain</span>
+        <span class="chip-pathway">Peds Fever</span>
+        <span class="chip-pathway">UTI</span>
+        <span class="chip-pathway">Sepsis Risk</span>
+        <span class="chip-pathway">Heart Failure</span>
+        <span class="chip-pathway">Rare Diseases</span>
+        <span class="chip-pathway">Pediatric</span>
+        <span class="chip-pathway">Pregnancy</span>
+        <span class="chip-pathway">Immunology</span>
+        <span class="chip-pathway">Lab Follow-up</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLINICIAN-DIRECTED GALLERY -->
+  <section id="gallery" class="gallery">
+    <div class="wrap">
+      <div class="g-head">
+        <h2>Clinician‑directed conversations</h2>
+        <div class="g-sub">Examples from escalations. Each phone loads from embedded JSON below.</div>
+      </div>
+
+      <div class="phone-row">
+        <!-- Phone 1 -->
+        <div class="phone-wrap">
+          <div class="iphone phone" data-conversation="provider_er_deescalation_postop_bruising">
+            <div class="screen"><ul class="messages"></ul></div>
+          </div>
+          <div class="caption">
+            <h4>Post‑op bruising—reassurance vs. ED</h4>
+            <p>Orthopedics NP confers with Florence about day‑3 arthroscopy bruising &amp; 99°F. Florence screens for red flags and guides home care, avoiding an unnecessary ED visit.</p>
+          </div>
+        </div>
+
+        <!-- Phone 2 -->
+        <div class="phone-wrap">
+          <div class="iphone phone" data-conversation="provider_ankle_sprain_vs_fracture">
+            <div class="screen"><ul class="messages"></ul></div>
+          </div>
+          <div class="caption">
+            <h4>Ankle twist—sprain vs. fracture</h4>
+            <p>Primary care on‑call triages inversion injury at home. Ottawa ankle rules applied by Florence; plan is RICE, NSAIDs, and next‑day x‑ray if weight bearing is limited.</p>
+          </div>
+        </div>
+
+        <!-- Phone 3 -->
+        <div class="phone-wrap">
+          <div class="iphone phone" data-conversation="provider_uri_vs_pneumonia">
+            <div class="screen"><ul class="messages"></ul></div>
+          </div>
+          <div class="caption">
+            <h4>Cough &amp; fever—viral URI vs. pneumonia</h4>
+            <p>Care team member asks Florence to risk‑stratify cough with fever. No tachypnea or desaturation detected; supportive care and return precautions, no ED.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="page-wrap" style="padding:40px 0 60px; color:#9DA7B3;">
+    <img src="nightingale-logo.png" alt="NightingaleMD" class="brand-logo" style="width:28px; height:28px; vertical-align:middle">
+    <span style="margin-left:10px;">© 2024 NightingaleMD</span>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Embedded JSON data for conversations
+    const conversationData = [
+      {
+        "id": "provider_er_deescalation_postop_bruising",
+        "dialog": [
+          ["provider", "Florence, quick consult. Lisa M., 66, day‑3 post‑arthroscopy. Reports new purple discoloration near the portal and a temp of 99.0°F. She wants to go to the ER. Can we triage and keep her home if safe?"],
+          ["florence", "On it. Screening for red flags: severe unrelenting pain, active bleeding, foul drainage/odor, fever ≥ 101.5°F, chest pain, dyspnea, or unilateral calf swelling/tenderness."],
+          ["provider", "Pain 4/10, improves with acetaminophen. No soak‑through; yesterday's spotting dried. No odor. Max temp 99.6°F. No chest pain or dyspnea. Calves symmetric, soft."],
+          ["florence", "Good. Next—wound edges approximated? Warmth > 2 inches from incision, red streaking, firm expanding lump? Mobility?"],
+          ["provider", "Edges closed; mild ecchymosis around portal. No streaking, no expanding mass. She ambulated to the kitchen; tolerable."],
+          ["florence", "Assessment: expected post‑op ecchymosis with serous staining. Recommend home care: elevation above heart, ice 20‑on/20‑off, keep dressing intact and dry. Encourage gentle ankle pumps."],
+          ["provider", "Agree. What return precautions do you want documented?"],
+          ["florence", "ED now if chest pain, dyspnea, rigors ≥ 101.5°F, rapidly spreading erythema, or severe calf pain. Otherwise virtual check tomorrow; I'll message ortho now."],
+          ["provider", "Perfect. I'll add instructions and she'll hold at home. Thanks."]
+        ]
+      },
+      {
+        "id": "provider_ankle_sprain_vs_fracture",
+        "dialog": [
+          ["provider", "Florence, triage for Daniel, 58. Twisted right ankle stepping off a curb. He's debating the ER."],
+          ["florence", "Let's apply Ottawa ankle rules. Can he bear weight for 4 steps now? Any bony tenderness at posterior edge/tip of either malleolus?"],
+          ["provider", "He can limp 6–7 steps. Tenderness is over the ATFL region, not over the malleolar tips."],
+          ["florence", "No Ottawa criteria for immediate x‑ray. Recommend RICE: rest, ice 15–20 min q2–3h, compression wrap, elevation. NSAID if no contraindication."],
+          ["provider", "Wrap applied, education given. When should he image?"],
+          ["florence", "If he cannot bear weight tomorrow, severe swelling/ecchymosis increases, or focal bony tenderness develops, schedule x‑ray. Follow‑up with PCP or urgent care in 24–48 h."]
+        ]
+      },
+      {
+        "id": "provider_uri_vs_pneumonia",
+        "dialog": [
+          ["provider", "Florence, triage Karen, 72. Cough and fever today; she fears pneumonia and wants ED."],
+          ["florence", "Assess: temp ≥ 101.5°F? Rigors? Pleuritic chest pain? RR ≥ 22? HR ≥ 100? O₂ saturation at rest and after a 1‑minute walk? Confusion or new weakness?"],
+          ["provider", "Temp 100.3°F. No rigors, no pleuritic pain. RR 18, HR 88. Home oximeter 97% at rest, 95% with slow walk. A&O x3."],
+          ["florence", "Low risk for pneumonia. Supportive care: fluids, rest, acetaminophen, honey/tea for cough. ED if SpO₂ ≤ 92%, RR ≥ 22, persistent fever ≥ 101.5°F, or chest pain."],
+          ["provider", "Understood. I'll document and call her in the morning."]
+        ]
+      }
+    ];
+
+    // Hero chat conversation
+    const heroConversation = [
+      {role: "user", content: "Hi Florence—my knee scope was 3 days ago. The bandage looks a bit yellow and there's more purple bruising. Temp is 99.0°F. Should I go to the ER?"},
+      {role: "ai", content: "I can help. First, I'll check for red flags. Any severe or increasing pain not relieved by medication?"},
+      {role: "user", content: "Pain is 4/10 and better after acetaminophen."},
+      {role: "ai", content: "Any active bleeding or dressing soaked through? Foul drainage or bad odor?"},
+      {role: "user", content: "No, just a little dried spotting on the gauze yesterday. No odor."},
+      {role: "ai", content: "Any fever ≥ 101.5°F, chills/rigors, shortness of breath, chest pain, or calf swelling/tenderness?"},
+      {role: "user", content: "None of those. Breathing is fine; no chest pain or calf issues."},
+      {role: "ai", content: "That sounds like expected post‑op bruising and mild serous staining. Home care: elevate above the heart, ice 20 min on/20 off, keep the dressing dry and intact."},
+      {role: "user", content: "So I don't need to go in tonight?"},
+      {role: "ai", content: "Based on your answers, the ER isn't needed now. I'll message the on‑call surgeon to review and I'll text you if anything changes."},
+      {role: "user", content: "Go to the ER if you develop chest pain, shortness of breath, high fever, rapidly spreading redness, or severe calf pain. Otherwise you're safe to rest at home."},
+      {role: "user", content: "Okay—thank you. I'll ice and elevate, and wait for the surgeon's note."}
+    ];
+
+    // Provider console conversation
+    const consoleConversation = [
+      {role: "ai", text: "Red flags: SpO₂ 92% (home oximeter), orthopnea, new ankle edema. No chest pain. Denies fever. Home meds reviewed (see Face Sheet)."},
+      {role: "provider", text: "Thanks. Any recent A1c and BNP?"},
+      {role: "ai", text: "A1c 9.3% (6 weeks ago); BNP 780 pg/mL (2 days ago, inpatient). Following COPD & CHF pathways. Recommend: same‑day visit or virtual, furosemide 40 mg × 1 now, low threshold for ED if SpO₂ < 90% or chest pain."},
+      {role: "provider", text: "Agree. Book a virtual in AM and nurse call in 30 min. Send instructions."},
+      {role: "ai", text: "Scheduling confirmed for 9:30 AM; patient received care plan and warning signs. I'll monitor and re‑check vitals in 30 minutes."},
+      {role: "provider", text: "Any med gaps or refill needs?"},
+      {role: "ai", text: "Inhaler technique reviewed; last rescue use 2× today. Controller overdue by 4 days; refill sent. Spacer recommended."},
+      {role: "provider", text: "Order BMP for morning lab draw; notify me if K⁺ < 3.5 or Cr > 2.0."},
+      {role: "ai", text: "BMP ordered at local lab; alert rules set. Education logged to EHR (FHIR R4)."}
+    ];
+
+    // Utility functions
+    function typeMessage(ul, msg) {
+      return new Promise(resolve => {
+        const li = document.createElement('li');
+        li.className = 'msg ' + msg.role;
+        const bubble = document.createElement('div');
+        bubble.className = 'msg-bubble';
+        li.appendChild(bubble);
+        ul.appendChild(li);
+
+        if (msg.role === 'user' || msg.role === 'provider') {
+          let i = 0;
+          bubble.innerHTML = '<span class="typing-indicator"><span></span><span></span><span></span></span>';
+          setTimeout(() => {
+            bubble.innerHTML = '';
+            const interval = setInterval(() => {
+              bubble.textContent = msg.content.slice(0, ++i);
+              if (i === msg.content.length) {
+                clearInterval(interval);
+                resolve();
+              }
+            }, 25);
+          }, 300);
+        } else {
+          bubble.innerHTML = '<span class="typing-indicator"><span></span><span></span><span></span></span>';
+          const delay = 800 + msg.content.length * 8;
+          setTimeout(() => {
+            bubble.textContent = msg.content;
+            resolve();
+          }, delay);
+        }
+      }).then(() => {
+        ul.scrollTop = ul.scrollHeight;
+      });
+    }
+
+    function addSpeakerButton(phone, audioFile) {
+      if (!audioFile || phone.querySelector('.speaker')) return;
+      
+      const speaker = document.createElement('div');
+      speaker.className = 'speaker';
+      speaker.innerHTML = '<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>';
+      phone.querySelector('.screen').appendChild(speaker);
+      
+      const audio = new Audio(audioFile);
+      speaker.addEventListener('click', () => {
+        if (audio.paused) {
+          audio.play();
+          speaker.style.background = 'radial-gradient(circle at 35% 35%, rgba(255,184,0,.85), rgba(255,184,0,.45))';
+        } else {
+          audio.pause();
+          audio.currentTime = 0;
+          speaker.style.background = 'radial-gradient(circle at 35% 35%, rgba(0,229,255,.85), rgba(0,229,255,.45))';
+        }
+      });
+      
+      audio.addEventListener('ended', () => {
+        speaker.style.background = 'radial-gradient(circle at 35% 35%, rgba(0,229,255,.85), rgba(0,229,255,.45))';
+      });
+    }
+
+    // Initialize hero chat
+    async function loadHeroChat() {
+      const ul = document.getElementById('heroChat');
+      if (!ul) return;
+      
+      for (const msg of heroConversation) {
+        await typeMessage(ul, msg);
+      }
+      
+      // Add speaker button if audio exists
+      setTimeout(() => addSpeakerButton(document.querySelector('.hero-phone'), 'audio/hero-er-deescalation.mp3'), 1000);
+    }
+
+    // Initialize provider console
+    function loadConsoleChat() {
+      const ul = document.getElementById('consoleMessages');
+      const replayBtn = document.getElementById('replayConsole');
+      
+      if (!ul || !replayBtn) return;
+
+      function renderChat() {
+        ul.innerHTML = '';
+        consoleConversation.forEach(msg => {
+          const li = document.createElement('li');
+          li.className = 'msg ' + (msg.role === 'ai' ? 'ai' : 'provider');
+          const bubble = document.createElement('div');
+          bubble.className = 'msg-bubble';
+          bubble.textContent = msg.text;
+          li.appendChild(bubble);
+          ul.appendChild(li);
+        });
+        ul.scrollTop = ul.scrollHeight;
+      }
+
+      async function replayChat() {
+        ul.innerHTML = '';
+        for (const msg of consoleConversation) {
+          await typeMessage(ul, {role: msg.role, content: msg.text});
+        }
+      }
+
+      renderChat();
+      replayBtn.addEventListener('click', replayChat);
+    }
+
+    // Initialize gallery phones
+    function loadGalleryPhones() {
+      const phones = document.querySelectorAll('.phone[data-conversation]');
+      
+      phones.forEach(phone => {
+        const conversationId = phone.dataset.conversation;
+        const conversation = conversationData.find(c => c.id === conversationId);
+        
+        if (!conversation) return;
+        
+        const ul = phone.querySelector('.messages');
+        const dialog = conversation.dialog.map(([sender, text]) => ({
+          role: sender === 'florence' ? 'ai' : 'provider',
+          content: text
+        }));
+
+        // Use intersection observer to trigger when phone comes into view
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && !phone._loaded) {
+              phone._loaded = true;
+              loadConversation(ul, dialog);
+              observer.unobserve(phone);
+            }
+          });
+        }, { threshold: 0.3 });
+        
+        observer.observe(phone);
+      });
+    }
+
+    async function loadConversation(ul, dialog) {
+      for (const msg of dialog) {
+        await typeMessage(ul, msg);
+      }
+    }
+
+    // Number animation for triage engine
+    function animateNumbers() {
+      const metrics = document.querySelectorAll('.metric-value[data-target]');
+      
+      metrics.forEach(metric => {
+        const target = parseFloat(metric.dataset.target);
+        const isDecimal = target % 1 !== 0;
+        let current = 0;
+        const increment = target / 50;
+        
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            current = target;
+            clearInterval(timer);
+          }
+          
+          if (isDecimal) {
+            metric.textContent = current.toFixed(1) + (metric.textContent.includes('%') ? '%' : metric.textContent.includes('s') ? 's' : '');
+          } else {
+            metric.textContent = Math.floor(current).toString();
+          }
+        }, 50);
+      });
+    }
+
+    // Triage engine animation
+    function animateTriageEngine() {
+      const engineObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setTimeout(animateNumbers, 500);
+            engineObserver.disconnect();
+          }
+        });
+      }, { threshold: 0.5 });
+      
+      const engineSection = document.getElementById('triage');
+      if (engineSection) {
+        engineObserver.observe(engineSection);
+      }
+    }
+
+    // Initialize everything when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      loadHeroChat();
+      loadConsoleChat();
+      loadGalleryPhones();
+      animateTriageEngine();
+    });
+  </script>
+
+  <!-- SCRIPTS (load in this order) -->
+  <script src="scripts/heroChat-providers.js" defer></script>
+  <script src="scripts/chat-gallery.js" defer></script>
+</body>
+</html>
+

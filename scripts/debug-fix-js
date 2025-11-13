@@ -1,0 +1,81 @@
+// Debug and Fix Script for NightingaleMD
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Running diagnostics...');
+    
+    // 1. Check section order
+    const recordsHub = document.getElementById('records-hub');
+    const qrSection = document.getElementById('qr');
+    
+    if (recordsHub && qrSection) {
+        const recordsIndex = Array.from(recordsHub.parentElement.children).indexOf(recordsHub);
+        const qrIndex = Array.from(qrSection.parentElement.children).indexOf(qrSection);
+        
+        console.log('Records Hub index:', recordsIndex, 'QR Section index:', qrIndex);
+        
+        // Fix section order if needed
+        if (recordsIndex > qrIndex) {
+            console.log('Fixing section order - moving Records Hub before QR');
+            qrSection.parentElement.insertBefore(recordsHub, qrSection);
+        }
+    }
+    
+    // 2. Force load hub icons if they have data-src
+    const hubIcons = document.querySelectorAll('.hub-icon img[data-src]');
+    console.log('Found hub icons with data-src:', hubIcons.length);
+    
+    hubIcons.forEach(img => {
+        console.log('Loading icon:', img.dataset.src);
+        img.src = img.dataset.src;
+        img.removeAttribute('data-src');
+    });
+    
+    // 3. Check if background canvases exist
+    const bgStars = document.getElementById('bgStars');
+    const sparks = document.getElementById('sparks');
+    
+    console.log('Background stars canvas:', bgStars ? 'exists' : 'missing');
+    console.log('Sparks canvas:', sparks ? 'exists' : 'missing');
+    
+    // 4. Fix typewriter width
+    const typewriter = document.getElementById('typewrite');
+    if (typewriter) {
+        const charCount = typewriter.textContent.length;
+        console.log('Typewriter text:', typewriter.textContent);
+        console.log('Character count:', charCount);
+        typewriter.style.setProperty('--ch', charCount);
+        
+        // Also ensure it has proper width constraint
+        typewriter.style.maxWidth = 'max-content';
+        typewriter.style.display = 'inline-block';
+    }
+    
+    // 5. Check hub visibility
+    const hub = document.querySelector('.records-hub .hub');
+    if (hub) {
+        const hubRect = hub.getBoundingClientRect();
+        console.log('Hub dimensions:', hubRect.width, 'x', hubRect.height);
+        console.log('Hub position:', hubRect.top, 'from top');
+    }
+    
+    // 6. Manually trigger hub animation if it hasn't started
+    setTimeout(() => {
+        const wrapper = document.querySelector('.records-animation-wrapper');
+        if (wrapper && !wrapper.hasAttribute('data-animated')) {
+            console.log('Manually triggering hub animation...');
+            wrapper.setAttribute('data-animated', 'true');
+            // Dispatch the hubIconsReady event
+            document.dispatchEvent(new Event('hubIconsReady'));
+        }
+    }, 2000);
+    
+    // 7. Check if stars are animating
+    setTimeout(() => {
+        const canvas = document.getElementById('bgStars');
+        if (canvas && canvas.getContext) {
+            const ctx = canvas.getContext('2d');
+            const imageData = ctx.getImageData(0, 0, 10, 10);
+            const hasPixels = imageData.data.some(pixel => pixel > 0);
+            console.log('Stars canvas has pixels:', hasPixels);
+        }
+    }, 1000);
+});

@@ -1,0 +1,1857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Plans - NightingaleMD | Amplify Your Care Team at Scale</title>
+    <meta name="description" content="Florence AI scales 24/7 member engagement, post-discharge outreach, and care-gap follow-up—under your clinical governance, with full auditability and interoperability.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700;800;900&family=Inter+Tight:wght@700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Combined Root Variables */
+        :root {
+            --deep-navy: #0A0F1B;
+            --triage-cyan: #00E5FF;
+            --prevention-gold: #FFB800;
+            --success-green: #00FF88;
+            --alert-red: #FF3366;
+            --text-primary: #FFFFFF;
+            --text-secondary: #8B9DC3;
+            --matrix-green: #00FF41;
+            
+            /* Extended colors from enhanced */
+            --florence-primary: #005bb8;
+            --florence-success: #00A86B;
+            --florence-warning: #F59E0B;
+            --florence-danger: #EF4444;
+            --florence-purple: #8B5CF6;
+            --florence-cyan: #06B6D4;
+            
+            /* From week */
+            --cool-gray-light: #8B9DC3;
+            --cool-gray-medium: #4A5568;
+            --cool-gray-dark: #2D3748;
+            --pure-white: #FFFFFF;
+            --cyan-dark: #00B8D4;
+            --cyan-light: #40FFFF;
+            --gold-dark: #E6A600;
+            --gold-light: #FFD54F;
+            --green-dark: #00C853;
+            --green-light: #69F0AE;
+            --red-dark: #D50000;
+            --red-light: #FF6E90;
+            
+            /* Functional */
+            --text-light: #8B9DC3;
+            --border-color: rgba(139, 157, 195, 0.2);
+            --glass-bg: rgba(10, 15, 27, 0.7);
+            --glass-border: rgba(0, 229, 255, 0.1);
+            
+            /* Gradients */
+            --gradient-cyan: linear-gradient(135deg, var(--triage-cyan) 0%, var(--cyan-dark) 100%);
+            --gradient-gold: linear-gradient(135deg, var(--prevention-gold) 0%, var(--gold-dark) 100%);
+            --gradient-green: linear-gradient(135deg, var(--success-green) 0%, var(--green-dark) 100%);
+            --gradient-red: linear-gradient(135deg, var(--alert-red) 0%, var(--red-dark) 100%);
+            --gradient-dark: linear-gradient(180deg, var(--deep-navy) 0%, #141B2D 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--deep-navy);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Film grain effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48ZmlsdGVyIGlkPSJub2lzZSI+PGZlVHVyYnVsZW5jZSB0eXBlPSJmcmFjdGFsTm9pc2UiIGJhc2VGcmVxdWVuY3k9IjAuOSIgbnVtT2N0YXZlcz0iNCIgLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjbm9pc2UpIiBvcGFjaXR5PSIwLjAyIi8+PC9zdmc+');
+            pointer-events: none;
+            opacity: 0.03;
+            z-index: 9999;
+            animation: grain 8s steps(10) infinite;
+        }
+
+        @keyframes grain {
+            0%, 100% { transform: translate(0, 0) }
+            10% { transform: translate(-5%, -10%) }
+            20% { transform: translate(-15%, 5%) }
+            30% { transform: translate(7%, -25%) }
+            40% { transform: translate(-5%, 25%) }
+            50% { transform: translate(-15%, 10%) }
+            60% { transform: translate(15%, 0%) }
+            70% { transform: translate(0%, 15%) }
+            80% { transform: translate(3%, 35%) }
+            90% { transform: translate(-10%, 10%) }
+        }
+
+        /* Vignette effect */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(10, 15, 27, 0.4) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        h1, h2, h3 { 
+            font-family: 'Inter Tight', 'Space Grotesk', 'Inter', sans-serif; 
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 15, 27, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--triage-cyan);
+        }
+
+        .cta-button {
+            background: var(--gradient-cyan);
+            color: var(--deep-navy);
+            padding: 0.75rem 1.5rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 229, 255, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 229, 255, 0.5);
+        }
+
+        section {
+            padding: 6rem 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(180deg, var(--deep-navy) 0%, #141B2D 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(3rem, 5vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #00E5FF 0%, #00B8D4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .stat-card {
+            background: rgba(0, 229, 255, 0.1);
+            border: 1px solid rgba(0, 229, 255, 0.2);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 229, 255, 0.2);
+            border-color: var(--triage-cyan);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--triage-cyan);
+            display: block;
+            background: var(--gradient-cyan);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Command Center */
+        .command-center {
+            background: linear-gradient(135deg, rgba(10, 15, 27, 0.98) 0%, rgba(20, 27, 45, 0.95) 100%);
+            border: 3px solid var(--triage-cyan);
+            border-radius: 2rem;
+            padding: 2rem;
+            min-height: 600px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 0 100px rgba(0, 229, 255, 0.4),
+                inset 0 0 200px rgba(0, 229, 255, 0.05);
+            transform: perspective(1000px) rotateX(2deg);
+        }
+
+        .command-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(0, 229, 255, 0.3);
+            position: relative;
+            z-index: 10;
+        }
+
+        .command-title {
+            font-size: 1.5rem;
+            color: var(--triage-cyan);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .live-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--success-green);
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 0.5rem;
+            box-shadow: 0 0 20px var(--success-green);
+            animation: livePulse 2s ease infinite;
+        }
+
+        @keyframes livePulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.8);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 0 15px rgba(0, 255, 136, 0);
+                transform: scale(1.1);
+            }
+        }
+
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* SVG Command Center */
+        .command-svg {
+            width: 100%;
+            height: 500px;
+            background: radial-gradient(circle at center, rgba(0, 229, 255, 0.05) 0%, transparent 70%);
+            border-radius: 1rem;
+            position: relative;
+        }
+
+        /* Care Management Console Section */
+        .care-console {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, rgba(0, 229, 255, 0.02), transparent);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--triage-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-header p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .console-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            border-radius: 1.5rem;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+        }
+
+        .console-tabs {
+            display: flex;
+            background: rgba(0, 229, 255, 0.05);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .console-tab {
+            flex: 1;
+            padding: 1.5rem 2rem;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .console-tab.active {
+            color: var(--triage-cyan);
+            background: rgba(0, 229, 255, 0.1);
+        }
+
+        .console-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-cyan);
+        }
+
+        .console-content {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            height: 600px;
+        }
+
+        /* Platform Capabilities Section */
+        .platform-capabilities {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, transparent, rgba(0, 229, 255, 0.02), transparent);
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .capability-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .capability-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--triage-cyan);
+            box-shadow: 0 20px 40px rgba(0, 229, 255, 0.2);
+        }
+
+        .capability-icon {
+            font-size: 3rem;
+            color: var(--triage-cyan);
+            margin-bottom: 1rem;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .capability-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .capability-metric {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--success-green);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Chronicity Matrix Section */
+        .chronicity-matrix {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, rgba(139, 92, 246, 0.02), transparent);
+        }
+
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 3rem auto;
+        }
+
+        .condition-card {
+            background: var(--glass-bg);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 1rem;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .condition-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            animation: iconPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .condition-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--florence-purple);
+            margin-bottom: 0.5rem;
+        }
+
+        .condition-subtitle {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .condition-description {
+            font-size: 0.875rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .condition-metric {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            font-size: 0.875rem;
+            color: var(--florence-purple);
+            font-weight: 600;
+        }
+
+        /* Transition Compass Section */
+        .transition-compass {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, rgba(255, 184, 0, 0.02), transparent);
+        }
+
+        .timeline-container {
+            max-width: 1000px;
+            margin: 3rem auto;
+            position: relative;
+        }
+
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            margin: 3rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-gold);
+            z-index: 1;
+        }
+
+        .timeline-step {
+            background: var(--glass-bg);
+            border: 3px solid var(--prevention-gold);
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+            animation: timelinePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes timelinePulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 184, 0, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(255, 184, 0, 0); }
+        }
+
+        .step-number {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--prevention-gold);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .step-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+
+        /* EmpathyCore Section */
+        .empathy-core {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, rgba(6, 182, 212, 0.02), transparent);
+        }
+
+        .empathy-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 3rem auto;
+        }
+
+        .empathy-card {
+            background: var(--glass-bg);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .empathy-icon {
+            font-size: 2.5rem;
+            color: var(--florence-cyan);
+            margin-bottom: 1rem;
+            animation: iconBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes iconBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .empathy-percentage {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--florence-cyan);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 0.5rem;
+        }
+
+        .empathy-label {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .empathy-description {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Predictive Care Gap Section */
+        .predictive-care {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, rgba(0, 255, 136, 0.02), transparent);
+        }
+
+        .prediction-flow {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 3rem auto;
+            position: relative;
+        }
+
+        .prediction-flow::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-green);
+            z-index: 1;
+        }
+
+        .prediction-step {
+            background: var(--glass-bg);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .prediction-icon {
+            font-size: 2.5rem;
+            color: var(--success-green);
+            margin-bottom: 1rem;
+            animation: iconGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes iconGlow {
+            0%, 100% { filter: drop-shadow(0 0 5px rgba(0, 255, 136, 0.5)); }
+            50% { filter: drop-shadow(0 0 15px rgba(0, 255, 136, 0.8)); }
+        }
+
+        .prediction-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--success-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .prediction-description {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Why Florence Succeeds Section */
+        .florence-succeeds {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.05) 0%, rgba(255, 184, 0, 0.05) 100%);
+        }
+
+        .succeeds-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 3rem auto;
+        }
+
+        .success-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .success-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 229, 255, 0.2);
+        }
+
+        .success-icon {
+            font-size: 3rem;
+            color: var(--triage-cyan);
+            margin-bottom: 1rem;
+            /* REMOVED ALL ANIMATIONS - NO MORE CRAZY MOVING ICONS */
+        }
+
+        .success-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .success-description {
+            font-size: 0.875rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .success-feature {
+            background: rgba(255, 184, 0, 0.1);
+            border: 1px solid rgba(255, 184, 0, 0.2);
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            font-size: 0.875rem;
+            color: var(--prevention-gold);
+            font-weight: 600;
+        }
+
+        /* Audio Examples Section */
+        .audio-examples {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, rgba(0, 229, 255, 0.02), transparent);
+        }
+
+        .audio-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 3rem auto;
+        }
+
+        .audio-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .audio-card:hover {
+            border-color: var(--triage-cyan);
+            box-shadow: 0 10px 30px rgba(0, 229, 255, 0.2);
+        }
+
+        .audio-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .play-button {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-cyan);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .play-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 20px rgba(0, 229, 255, 0.4);
+        }
+
+        .audio-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--triage-cyan);
+        }
+
+        .audio-description {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 6rem 2rem;
+            background: linear-gradient(180deg, rgba(0, 229, 255, 0.05), transparent);
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(10, 15, 27, 0.95) 0%, rgba(20, 27, 45, 0.9) 100%);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--triage-cyan);
+            border-radius: 2rem;
+            padding: 3rem;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            color: var(--triage-cyan);
+        }
+
+        .contact p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .cta-button-large {
+            background: var(--gradient-cyan);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.125rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button-large:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 229, 255, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            background: linear-gradient(180deg, rgba(10, 15, 27, 0.95) 0%, #0A0F1B 100%);
+            border-top: 1px solid var(--glass-border);
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .capabilities-grid,
+            .matrix-grid,
+            .empathy-grid,
+            .prediction-flow,
+            .succeeds-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .console-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .capabilities-grid,
+            .matrix-grid,
+            .empathy-grid,
+            .prediction-flow,
+            .succeeds-grid,
+            .audio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .timeline::before {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <span class="logo-text">🩺 NightingaleMD</span>
+            </a>
+            
+            <div class="nav-links">
+                <a href="/" class="nav-link">For Patients</a>
+                <a href="providers.html" class="nav-link">For Providers</a>
+                <a href="healthplans.html" class="nav-link active">For Health Plans</a>
+                <a href="news.html" class="nav-link">News</a>
+                <a href="#contact" class="cta-button">Try Florence</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Command Center -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Amplify Your Care Team.<br>Engage Every Member.</h1>
+                <p class="subtitle">Orchestrate 10,000+ concurrent member interactions with MD oversight, longitudinal data, and clear audit trails.</p>
+                <p class="sub-subtitle" style="color: var(--text-secondary); font-size: 1rem; margin-top: 0.5rem; font-weight: 400;">Florence carries your care plan forward between member touchpoints.</p>
+                
+                <div class="hero-stats">
+                    <div class="stat-card">
+                        <span class="stat-value" id="memberCount">10,847</span>
+                        <span class="stat-label">Members Engaged Now</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">94.9%</span>
+                        <span class="stat-label">Auto-Resolved</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">1.3s</span>
+                        <span class="stat-label">Response Time</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Command Center -->
+            <div class="command-center">
+                <div class="command-header">
+                    <div class="command-title">FLORENCE OPERATIONS CENTER</div>
+                    <div class="live-indicator">
+                        <div class="live-dot"></div>
+                        <span>LIVE</span>
+                    </div>
+                </div>
+                
+                <!-- SVG Command Center Visualization -->
+                <svg class="command-svg" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Background Grid -->
+                    <defs>
+                        <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(0, 229, 255, 0.1)" stroke-width="1"/>
+                        </pattern>
+                        
+                        <!-- Glow Filters -->
+                        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                            <feMerge> 
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                        
+                        <filter id="strongGlow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+                            <feMerge> 
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    
+                    <!-- Background -->
+                    <rect width="800" height="500" fill="url(#grid)" opacity="0.3"/>
+                    
+                    <!-- Central Florence Core -->
+                    <g id="florenceCore" transform="translate(400, 250)">
+                        <!-- Orbital Rings -->
+                        <circle r="80" fill="none" stroke="rgba(0, 229, 255, 0.3)" stroke-width="2" opacity="0.6">
+                            <animateTransform attributeName="transform" type="rotate" values="0;360" dur="20s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle r="100" fill="none" stroke="rgba(255, 184, 0, 0.3)" stroke-width="2" opacity="0.6">
+                            <animateTransform attributeName="transform" type="rotate" values="360;0" dur="25s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle r="120" fill="none" stroke="rgba(0, 255, 136, 0.3)" stroke-width="2" opacity="0.6">
+                            <animateTransform attributeName="transform" type="rotate" values="0;360" dur="30s" repeatCount="indefinite"/>
+                        </circle>
+                        
+                        <!-- Central Hexagon -->
+                        <polygon points="-25,-43.3 25,-43.3 50,0 25,43.3 -25,43.3 -50,0" 
+                                 fill="rgba(0, 229, 255, 0.2)" 
+                                 stroke="#00E5FF" 
+                                 stroke-width="3" 
+                                 filter="url(#strongGlow)">
+                            <animate attributeName="opacity" values="0.8;1;0.8" dur="3s" repeatCount="indefinite"/>
+                        </polygon>
+                        
+                        <!-- Florence Label -->
+                        <text x="0" y="5" text-anchor="middle" fill="#00E5FF" font-family="JetBrains Mono" font-size="12" font-weight="bold">FLORENCE</text>
+                        <text x="0" y="20" text-anchor="middle" fill="#8B9DC3" font-family="JetBrains Mono" font-size="8">AI CORE</text>
+                    </g>
+                    
+                    <!-- Member Nodes -->
+                    <g id="memberNodes">
+                        <!-- Active Members -->
+                        <circle cx="200" cy="150" r="8" fill="#00FF88" filter="url(#glow)">
+                            <animate attributeName="r" values="8;12;8" dur="2s" repeatCount="indefinite"/>
+                        </circle>
+                        <text x="200" y="135" text-anchor="middle" fill="#00FF88" font-family="JetBrains Mono" font-size="10">ACTV</text>
+                        
+                        <circle cx="600" cy="180" r="8" fill="#00FF88" filter="url(#glow)">
+                            <animate attributeName="r" values="8;12;8" dur="2.5s" repeatCount="indefinite"/>
+                        </circle>
+                        <text x="600" y="165" text-anchor="middle" fill="#00FF88" font-family="JetBrains Mono" font-size="10">ACTV</text>
+                        
+                        <!-- Scheduled Members -->
+                        <circle cx="150" cy="350" r="6" fill="#FFB800" filter="url(#glow)">
+                            <animate attributeName="opacity" values="0.7;1;0.7" dur="1.5s" repeatCount="indefinite"/>
+                        </circle>
+                        <text x="150" y="335" text-anchor="middle" fill="#FFB800" font-family="JetBrains Mono" font-size="10">SCHD</text>
+                        
+                        <circle cx="650" cy="320" r="6" fill="#FFB800" filter="url(#glow)">
+                            <animate attributeName="opacity" values="0.7;1;0.7" dur="1.8s" repeatCount="indefinite"/>
+                        </circle>
+                        <text x="650" y="305" text-anchor="middle" fill="#FFB800" font-family="JetBrains Mono" font-size="10">SCHD</text>
+                        
+                        <!-- Alert Members -->
+                        <circle cx="100" cy="200" r="10" fill="#FF3366" filter="url(#strongGlow)">
+                            <animate attributeName="r" values="10;15;10" dur="1s" repeatCount="indefinite"/>
+                        </circle>
+                        <text x="100" y="185" text-anchor="middle" fill="#FF3366" font-family="JetBrains Mono" font-size="10">ALRT</text>
+                    </g>
+                    
+                    <!-- Data Streams -->
+                    <g id="dataStreams">
+                        <!-- Stream from left node to center -->
+                        <path d="M 200 150 Q 300 200 400 250" fill="none" stroke="#00E5FF" stroke-width="2" opacity="0.6">
+                            <animate attributeName="stroke-dasharray" values="0,1000;1000,0" dur="3s" repeatCount="indefinite"/>
+                        </path>
+                        
+                        <!-- Stream from right node to center -->
+                        <path d="M 600 180 Q 500 215 400 250" fill="none" stroke="#00FF88" stroke-width="2" opacity="0.6">
+                            <animate attributeName="stroke-dasharray" values="0,1000;1000,0" dur="2.5s" repeatCount="indefinite"/>
+                        </path>
+                        
+                        <!-- Stream from bottom nodes -->
+                        <path d="M 150 350 Q 275 300 400 250" fill="none" stroke="#FFB800" stroke-width="2" opacity="0.6">
+                            <animate attributeName="stroke-dasharray" values="0,1000;1000,0" dur="4s" repeatCount="indefinite"/>
+                        </path>
+                    </g>
+                    
+                    <!-- Live Metrics -->
+                    <g id="liveMetrics">
+                        <rect x="20" y="20" width="200" height="80" fill="rgba(10, 15, 27, 0.8)" stroke="rgba(0, 229, 255, 0.3)" stroke-width="1" rx="5"/>
+                        <text x="30" y="40" fill="#00E5FF" font-family="JetBrains Mono" font-size="12" font-weight="bold">LIVE METRICS</text>
+                        <text x="30" y="60" fill="#8B9DC3" font-family="JetBrains Mono" font-size="10">Active: <tspan fill="#00FF88" id="activeCount">1,247</tspan></text>
+                        <text x="30" y="75" fill="#8B9DC3" font-family="JetBrains Mono" font-size="10">Queue: <tspan fill="#FFB800" id="queueCount">89</tspan></text>
+                        <text x="30" y="90" fill="#8B9DC3" font-family="JetBrains Mono" font-size="10">Alerts: <tspan fill="#FF3366" id="alertCount">3</tspan></text>
+                    </g>
+                    
+                    <!-- Timestamp -->
+                    <text x="780" y="490" text-anchor="end" fill="#8B9DC3" font-family="JetBrains Mono" font-size="10" id="svgTimestamp">--:--:-- UTC</text>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Care Management Console Section -->
+    <section class="care-console">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <div class="section-header">
+                <h2>Care Management Console</h2>
+                <p>Florence AI with Human Oversight</p>
+            </div>
+            
+            <div class="console-container">
+                <!-- Console Tabs -->
+                <div class="console-tabs">
+                    <button class="console-tab active" onclick="showConsoleTab('ccm')">CCM Coordinator</button>
+                    <button class="console-tab" onclick="showConsoleTab('tcm')">Transition Care</button>
+                    <button class="console-tab" onclick="showConsoleTab('complex')">Complex Case</button>
+                </div>
+                
+                <!-- Console Content -->
+                <div id="console-content">
+                    <!-- CCM Content (Active by default) -->
+                    <div id="ccm-content" class="console-content">
+                        <!-- CCM Chat Panel -->
+                        <div style="background: rgba(10, 15, 27, 0.5); border-right: 1px solid var(--glass-border); padding: 1.5rem; overflow-y: auto;">
+                            <div style="padding: 1rem; margin-bottom: 1rem; background: rgba(0, 229, 255, 0.05); border: 1px solid rgba(0, 229, 255, 0.1); border-radius: 0.5rem; cursor: pointer; transition: all 0.3s ease;">
+                                <div style="font-weight: 600; color: var(--triage-cyan); margin-bottom: 0.25rem;">Margaret Chen</div>
+                                <div style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Florence: "Hi Margaret, this is Florence calling for your monthly check-in..."</div>
+                                <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-secondary);">
+                                    <span>2 min ago</span>
+                                    <span style="color: var(--success-green);">Active</span>
+                                </div>
+                            </div>
+                            
+                            <div style="padding: 1rem; margin-bottom: 1rem; background: rgba(0, 229, 255, 0.05); border: 1px solid rgba(0, 229, 255, 0.1); border-radius: 0.5rem; cursor: pointer; transition: all 0.3s ease;">
+                                <div style="font-weight: 600; color: var(--triage-cyan); margin-bottom: 0.25rem;">Robert Johnson</div>
+                                <div style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Member: "Yes, I can make the appointment Thursday"</div>
+                                <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-secondary);">
+                                    <span>5 min ago</span>
+                                    <span style="color: var(--prevention-gold);">Scheduling</span>
+                                </div>
+                            </div>
+                            
+                            <div style="padding: 1rem; margin-bottom: 1rem; background: rgba(0, 229, 255, 0.05); border: 1px solid rgba(0, 229, 255, 0.1); border-radius: 0.5rem; cursor: pointer; transition: all 0.3s ease;">
+                                <div style="font-weight: 600; color: var(--triage-cyan); margin-bottom: 0.25rem;">Maria Rodriguez</div>
+                                <div style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Florence: "Your A1C results show great improvement..."</div>
+                                <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-secondary);">
+                                    <span>8 min ago</span>
+                                    <span style="color: var(--success-green);">Active</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- CCM Member Panel -->
+                        <div style="padding: 2rem; overflow-y: auto;">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--glass-border);">
+                                <div>
+                                    <h3 style="color: var(--triage-cyan); margin-bottom: 0.5rem;">Margaret Chen</h3>
+                                    <div style="font-size: 0.875rem; color: var(--text-secondary);">
+                                        CCM Enrolled • 20 min/month used • Next Check-in: 3 days
+                                    </div>
+                                </div>
+                                <div style="padding: 0.5rem 1rem; border-radius: 1rem; font-size: 0.875rem; font-weight: 600; background: rgba(0, 229, 255, 0.2); color: var(--triage-cyan); border: 1px solid var(--triage-cyan);">
+                                    CCM Active
+                                </div>
+                            </div>
+                            
+                            <!-- CCM Conversation -->
+                            <div style="background: rgba(10, 15, 27, 0.3); border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 2rem; max-height: 300px; overflow-y: auto;">
+                                <div style="margin-bottom: 1.5rem; display: flex; gap: 1rem;">
+                                    <div style="width: 32px; height: 32px; background: var(--triage-cyan); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--deep-navy); font-weight: bold; flex-shrink: 0;">F</div>
+                                    <div style="background: rgba(0, 229, 255, 0.1); padding: 1rem; border-radius: 0.75rem; flex: 1;">
+                                        Hi Margaret, this is Florence calling for your monthly chronic care management check-in. How have you been feeling since we last spoke?
+                                    </div>
+                                </div>
+                                
+                                <div style="display: flex; justify-content: flex-end; margin-bottom: 1.5rem;">
+                                    <div style="background: rgba(255, 184, 0, 0.1); padding: 1rem; border-radius: 0.75rem; max-width: 80%;">
+                                        Pretty good, but I've been having some swelling in my ankles again.
+                                    </div>
+                                </div>
+                                
+                                <div style="margin-bottom: 1.5rem; display: flex; gap: 1rem;">
+                                    <div style="width: 32px; height: 32px; background: var(--triage-cyan); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--deep-navy); font-weight: bold; flex-shrink: 0;">F</div>
+                                    <div style="background: rgba(0, 229, 255, 0.1); padding: 1rem; border-radius: 0.75rem; flex: 1;">
+                                        I see. Let me check your recent weight logs. Have you been weighing yourself daily as we discussed? Also, have you been limiting your sodium intake?
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- CCM Care Plan -->
+                            <div style="background: rgba(0, 229, 255, 0.05); border: 1px solid var(--glass-border); border-radius: 0.5rem; padding: 1rem;">
+                                <h4 style="margin-bottom: 1rem; color: var(--triage-cyan);">CCM Care Plan Goals</h4>
+                                <div style="display: grid; gap: 0.75rem;">
+                                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <span style="color: var(--success-green);">✓</span>
+                                        <span style="font-size: 0.875rem;">Daily weight monitoring</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <span style="color: var(--prevention-gold);">○</span>
+                                        <span style="font-size: 0.875rem;">Reduce sodium to <2000mg/day</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <span style="color: var(--success-green);">✓</span>
+                                        <span style="font-size: 0.875rem;">Medication adherence >90%</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <span style="color: var(--prevention-gold);">○</span>
+                                        <span style="font-size: 0.875rem;">Walking 15 min daily</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Transition Care Content (Hidden by default) -->
+                    <div id="tcm-content" style="display: none;" class="console-content">
+                        <!-- Transition Care Chat Panel -->
+                        <div style="background: rgba(10, 15, 27, 0.5); border-right: 1px solid var(--glass-border); padding: 1.5rem; overflow-y: auto;">
+                            <div style="padding: 1rem; margin-bottom: 1rem; background: rgba(255, 51, 102, 0.05); border: 1px solid rgba(255, 51, 102, 0.2); border-radius: 0.5rem; cursor: pointer;">
+                                <div style="font-weight: 600; color: var(--alert-red); margin-bottom: 0.25rem;">🚨 James Wilson - Day 1 Post-Discharge</div>
+                                <div style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Florence: "Following up after your discharge from Memorial Hospital..."</div>
+                                <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-secondary);">
+                                    <span>Just now</span>
+                                    <span style="color: var(--alert-red);">Priority</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Transition Care Member Panel -->
+                        <div style="padding: 2rem; overflow-y: auto;">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--glass-border);">
+                                <div>
+                                    <h3 style="color: var(--alert-red); margin-bottom: 0.5rem;">James Wilson</h3>
+                                    <div style="font-size: 0.875rem; color: var(--text-secondary);">
+                                        Discharged: Yesterday • Diagnosis: CHF Exacerbation • LOS: 4 days
+                                    </div>
+                                </div>
+                                <div style="padding: 0.5rem 1rem; border-radius: 1rem; font-size: 0.875rem; font-weight: 600; background: rgba(255, 51, 102, 0.2); color: var(--alert-red); border: 1px solid var(--alert-red);">
+                                    High Readmit Risk
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Complex Case Content (Hidden by default) -->
+                    <div id="complex-content" style="display: none;" class="console-content">
+                        <!-- Complex Case Chat Panel -->
+                        <div style="background: rgba(10, 15, 27, 0.5); border-right: 1px solid var(--glass-border); padding: 1.5rem; overflow-y: auto;">
+                            <div style="padding: 1rem; margin-bottom: 1rem; background: rgba(139, 92, 246, 0.05); border: 1px solid rgba(139, 92, 246, 0.2); border-radius: 0.5rem; cursor: pointer;">
+                                <div style="font-weight: 600; color: var(--florence-purple); margin-bottom: 0.25rem;">🔄 Dorothy Chen - Multi-Specialist Coordination</div>
+                                <div style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Florence: "I've detected conflicting medications from your specialists..."</div>
+                                <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-secondary);">
+                                    <span>2 min ago</span>
+                                    <span style="color: var(--florence-purple);">Complex</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Complex Case Member Panel -->
+                        <div style="padding: 2rem; overflow-y: auto;">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--glass-border);">
+                                <div>
+                                    <h3 style="color: var(--florence-purple); margin-bottom: 0.5rem;">Dorothy Chen</h3>
+                                    <div style="font-size: 0.875rem; color: var(--text-secondary);">
+                                        12 Active Specialists • 23 Medications • HCC Score: 4.2
+                                    </div>
+                                </div>
+                                <div style="padding: 0.5rem 1rem; border-radius: 1rem; font-size: 0.875rem; font-weight: 600; background: rgba(139, 92, 246, 0.2); color: var(--florence-purple); border: 1px solid var(--florence-purple);">
+                                    Complex Case
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platform Capabilities Section -->
+    <section class="platform-capabilities">
+        <div style="max-width: 1400px; margin: 0 auto; padding: 0 2rem;">
+            <div class="section-header">
+                <h2>Intelligence System</h2>
+                <p>Six breakthrough capabilities. One unified platform. Complete longitudinal records powering every decision.</p>
+            </div>
+            
+            <div class="capabilities-grid">
+                <div class="capability-card">
+                    <div class="capability-icon">🧬</div>
+                    <div class="capability-name">Chronicity Matrix™</div>
+                    <div class="capability-metric">150+ Conditions</div>
+                    <p style="font-size: 0.85rem; color: var(--text-light);">Multi-morbidity orchestration</p>
+                </div>
+                
+                <div class="capability-card">
+                    <div class="capability-icon">🚑</div>
+                    <div class="capability-name">Transition Compass™</div>
+                    <div class="capability-metric">15 min</div>
+                    <p style="font-size: 0.85rem; color: var(--text-light);">ADT response time</p>
+                </div>
+                
+                <div class="capability-card">
+                    <div class="capability-icon">🧠</div>
+                    <div class="capability-name">EmpathyCore™</div>
+                    <div class="capability-metric">78.2%</div>
+                    <p style="font-size: 0.85rem; color: var(--text-light);">Cognitive decline detection</p>
+                </div>
+                
+                <div class="capability-card">
+                    <div class="capability-icon">📊</div>
+                    <div class="capability-name">Predictive Intelligence™</div>
+                    <div class="capability-metric">90 days</div>
+                    <p style="font-size: 0.85rem; color: var(--text-light);">Gap prediction horizon</p>
+                </div>
+                
+                <div class="capability-card">
+                    <div class="capability-icon">🔗</div>
+                    <div class="capability-name">Complete Interoperability™</div>
+                    <div class="capability-metric">95%</div>
+                    <p style="font-size: 0.85rem; color: var(--text-light);">Provider coverage</p>
+                </div>
+                
+                <div class="capability-card">
+                    <div class="capability-icon">🛡️</div>
+                    <div class="capability-name">Clinical Validation</div>
+                    <div class="capability-metric">3 AMCs</div>
+                    <p style="font-size: 0.85rem; color: var(--text-light);">Academic partnerships</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chronicity Matrix Section -->
+    <section class="chronicity-matrix">
+        <div style="max-width: 1400px; margin: 0 auto; padding: 0 2rem;">
+            <div class="section-header">
+                <h2>Chronicity Matrix™: Multi-Morbidity Orchestration at Scale</h2>
+                <p>The industry's first real-time condition interaction engine analyzing 150+ Medicare-prevalent conditions simultaneously</p>
+            </div>
+            
+            <div class="matrix-grid">
+                <div class="condition-card">
+                    <div class="condition-icon">❤️💊</div>
+                    <div class="condition-title">Cardiovascular + Diabetes</div>
+                    <div class="condition-subtitle">Most common interaction</div>
+                    <p class="condition-description">Florence identifies when beta-blockers for CHF mask hypoglycemia symptoms in diabetic patients, automatically adjusting monitoring protocols.</p>
+                    <div class="condition-metric">Cascade Risk: Heart medication → Masked low blood sugar</div>
+                </div>
+                
+                <div class="condition-card">
+                    <div class="condition-icon">🫘💉🩸</div>
+                    <div class="condition-title">CKD + Hypertension + Diabetes</div>
+                    <div class="condition-subtitle">Triple threat detection</div>
+                    <p class="condition-description">Chronicity Matrix™ manages the delicate balance between ACE inhibitors, metformin dosing, and potassium levels across all three conditions.</p>
+                    <div class="condition-metric">20+ medication interactions tracked</div>
+                </div>
+                
+                <div class="condition-card">
+                    <div class="condition-icon">🫁❤️</div>
+                    <div class="condition-title">COPD + CHF Differentiation</div>
+                    <div class="condition-subtitle">Preventing misdiagnosis</div>
+                    <p class="condition-description">AI distinguishes between COPD exacerbation and CHF decompensation using complete clinical data, preventing inappropriate treatments.</p>
+                    <div class="condition-metric">95% accuracy in differentiation</div>
+                </div>
+            </div>
+            
+            <div style="background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 1rem; padding: 2rem; margin-top: 3rem; text-align: center;">
+                <h3 style="color: var(--florence-purple); margin-bottom: 2rem;">Specialist Coordination Intelligence</h3>
+                <p style="margin-bottom: 2rem;">Florence automatically identifies and resolves contradictory recommendations from multiple specialists</p>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;">
+                    <div>
+                        <div style="font-size: 2rem; font-weight: 900; color: var(--florence-purple); font-family: 'JetBrains Mono', monospace;">18.7</div>
+                        <div style="font-size: 0.875rem; color: var(--text-secondary);">Average providers per Medicare patient</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 2rem; font-weight: 900; color: var(--success-green); font-family: 'JetBrains Mono', monospace;">100%</div>
+                        <div style="font-size: 0.875rem; color: var(--text-secondary);">Specialist notes analyzed</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 2rem; font-weight: 900; color: var(--prevention-gold); font-family: 'JetBrains Mono', monospace;">35%</div>
+                        <div style="font-size: 0.875rem; color: var(--text-secondary);">Fewer medication conflicts</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition Compass Section -->
+    <section class="transition-compass">
+        <div style="max-width: 1400px; margin: 0 auto; padding: 0 2rem;">
+            <div class="section-header">
+                <h2>Transition Compass™: Real-Time Care Coordination</h2>
+                <p>15-minute response from discharge to patient contact. 95% of US hospitals covered.</p>
+            </div>
+            
+            <div class="timeline-container">
+                <div class="timeline">
+                    <div class="timeline-step">
+                        <div class="step-number">0</div>
+                        <div class="step-label">Discharge Event</div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="step-number">5</div>
+                        <div class="step-label">min: ADT Received</div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="step-number">10</div>
+                        <div class="step-label">min: Care Plan Generated</div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="step-number">15</div>
+                        <div class="step-label">min: Patient Contact</div>
+                    </div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 4rem;">
+                    <div style="background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 1rem; padding: 2rem;">
+                        <h3 style="color: var(--prevention-gold); margin-bottom: 1.5rem;">Discharge Orchestration Engine</h3>
+                        <ul style="list-style: none; padding: 0; space-y: 1rem;">
+                            <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                                <span style="position: absolute; left: 0; color: var(--prevention-gold);">•</span>
+                                Automated appointment scheduling with all specialists
+                            </li>
+                            <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                                <span style="position: absolute; left: 0; color: var(--prevention-gold);">•</span>
+                                Medication reconciliation across all pharmacies
+                            </li>
+                            <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                                <span style="position: absolute; left: 0; color: var(--prevention-gold);">•</span>
+                                Home health and DME coordination
+                            </li>
+                            <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                                <span style="position: absolute; left: 0; color: var(--prevention-gold);">•</span>
+                                Transportation arrangement and confirmation
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div style="background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 1rem; padding: 2rem;">
+                        <h3 style="color: var(--alert-red); margin-bottom: 1.5rem;">24/7 Emergency Response Protocol</h3>
+                        <ul style="list-style: none; padding: 0; space-y: 1rem;">
+                            <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                                <span style="position: absolute; left: 0; color: var(--alert-red);">•</span>
+                                Severity assessment algorithm
+                            </li>
+                            <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                                <span style="position: absolute; left: 0; color: var(--alert-red);">•</span>
+                                Nurse triage escalation
+                            </li>
+                            <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                                <span style="position: absolute; left: 0; color: var(--alert-red);">•</span>
+                                Direct 911 activation when needed
+                            </li>
+                            <li style="margin-bottom: 1rem; padding-left: 1.5rem; position: relative;">
+                                <span style="position: absolute; left: 0; color: var(--alert-red);">•</span>
+                                Provider notification in real-time
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EmpathyCore Section -->
+    <section class="empathy-core">
+        <div style="max-width: 1400px; margin: 0 auto; padding: 0 2rem;">
+            <div class="section-header">
+                <h2>EmpathyCore™: Vocal Biomarker Intelligence</h2>
+                <p>Industry-leading emotional intelligence detecting cognitive decline, depression, and health deterioration through voice</p>
+            </div>
+            
+            <div class="empathy-grid">
+                <div class="empathy-card">
+                    <div class="empathy-icon">🧠</div>
+                    <div class="empathy-percentage">78.2%</div>
+                    <div class="empathy-label">Cognitive Decline</div>
+                    <div class="empathy-description">90-day early detection</div>
+                </div>
+                
+                <div class="empathy-card">
+                    <div class="empathy-icon">😔</div>
+                    <div class="empathy-percentage">85%</div>
+                    <div class="empathy-label">Depression Screening</div>
+                    <div class="empathy-description">Before clinical presentation</div>
+                </div>
+                
+                <div class="empathy-card">
+                    <div class="empathy-icon">😰</div>
+                    <div class="empathy-percentage">92%</div>
+                    <div class="empathy-label">Anxiety Detection</div>
+                    <div class="empathy-description">Real-time assessment</div>
+                </div>
+                
+                <div class="empathy-card">
+                    <div class="empathy-icon">😣</div>
+                    <div class="empathy-percentage">88%</div>
+                    <div class="empathy-label">Pain Level</div>
+                    <div class="empathy-description">Non-verbal indicators</div>
+                </div>
+            </div>
+            
+            <div style="background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 1rem; padding: 2rem; margin-top: 3rem; text-align: center;">
+                <h3 style="color: var(--florence-cyan); margin-bottom: 2rem;">Adaptive Conversation Engine</h3>
+                <p style="margin-bottom: 2rem;">Florence adjusts communication style in real-time based on emotional state and cognitive function</p>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;">
+                    <div>
+                        <div style="font-size: 2rem; font-weight: 900; color: var(--florence-cyan); font-family: 'JetBrains Mono', monospace;">35%</div>
+                        <div style="font-size: 0.875rem; color: var(--text-secondary);">Better adherence</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 2rem; font-weight: 900; color: var(--success-green); font-family: 'JetBrains Mono', monospace;">90%</div>
+                        <div style="font-size: 0.875rem; color: var(--text-secondary);">Satisfaction score</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 2rem; font-weight: 900; color: var(--prevention-gold); font-family: 'JetBrains Mono', monospace;">30+</div>
+                        <div style="font-size: 0.875rem; color: var(--text-secondary);">Languages supported</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Predictive Care Gap Intelligence Section -->
+    <section class="predictive-care">
+        <div style="max-width: 1400px; margin: 0 auto; padding: 0 2rem;">
+            <div class="section-header">
+                <h2>Predictive Care Gap Intelligence™</h2>
+                <p>90-day early warning system with 85% accuracy. Close gaps in the same measurement year.</p>
+            </div>
+            
+            <div class="prediction-flow">
+                <div class="prediction-step">
+                    <div class="prediction-icon">🔬</div>
+                    <div class="prediction-title">Lab Trend Analysis</div>
+                    <div class="prediction-description">Silent non-adherence detection</div>
+                </div>
+                
+                <div class="prediction-step">
+                    <div class="prediction-icon">🎯</div>
+                    <div class="prediction-title">90-Day Prediction</div>
+                    <div class="prediction-description">ML models identify risk</div>
+                </div>
+                
+                <div class="prediction-step">
+                    <div class="prediction-icon">📞</div>
+                    <div class="prediction-title">Proactive Outreach</div>
+                    <div class="prediction-description">Florence engages member</div>
+                </div>
+                
+                <div class="prediction-step">
+                    <div class="prediction-icon">✅</div>
+                    <div class="prediction-title">Gap Closed</div>
+                    <div class="prediction-description">Same-year Stars impact</div>
+                </div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem;">
+                <div style="background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 1rem; padding: 2rem; text-align: center;">
+                    <h4 style="color: var(--success-green); margin-bottom: 1rem;">Medication Adherence</h4>
+                    <div style="font-size: 2.5rem; font-weight: 900; color: var(--success-green); font-family: 'JetBrains Mono', monospace; margin-bottom: 0.5rem;">85%</div>
+                    <div style="font-size: 0.875rem; color: var(--text-secondary);">Prediction accuracy</div>
+                </div>
+                
+                <div style="background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 1rem; padding: 2rem; text-align: center;">
+                    <h4 style="color: var(--prevention-gold); margin-bottom: 1rem;">Preventive Screening</h4>
+                    <div style="font-size: 2.5rem; font-weight: 900; color: var(--prevention-gold); font-family: 'JetBrains Mono', monospace; margin-bottom: 0.5rem;">75%</div>
+                    <div style="font-size: 0.875rem; color: var(--text-secondary);">Completion rate</div>
+                </div>
+                
+                <div style="background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 1rem; padding: 2rem; text-align: center;">
+                    <h4 style="color: var(--florence-cyan); margin-bottom: 1rem;">Disease Control</h4>
+                    <div style="font-size: 2.5rem; font-weight: 900; color: var(--florence-cyan); font-family: 'JetBrains Mono', monospace; margin-bottom: 0.5rem;">65%</div>
+                    <div style="font-size: 0.875rem; color: var(--text-secondary);">In-range metrics</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Florence Succeeds Section -->
+    <section class="florence-succeeds">
+        <div style="max-width: 1400px; margin: 0 auto; padding: 0 2rem;">
+            <div class="section-header">
+                <h2>Why Florence Succeeds Where Others Fail</h2>
+                <p>Complete member intelligence before first contact</p>
+            </div>
+            
+            <div class="succeeds-grid">
+                <div class="success-card">
+                    <div class="success-icon">📞</div>
+                    <div class="success-title">Every Number, Every Time</div>
+                    <div class="success-description">Florence has instant access to all contact methods through LexisNexis integration - home, mobile, work, emergency contacts. Never loses touch with a member.</div>
+                    <div class="success-feature">Powered by LexisNexis Risk Solutions</div>
+                </div>
+                
+                <div class="success-card">
+                    <div class="success-icon">🗣️</div>
+                    <div class="success-title">Speaks Their Language</div>
+                    <div class="success-description">Automatically detects and switches to member's preferred language. Currently supporting 12 languages with cultural competency built in.</div>
+                    <div class="success-feature">Real-time translation engine</div>
+                </div>
+                
+                <div class="success-card">
+                    <div class="success-icon">⚡</div>
+                    <div class="success-title">Omnichannel Persistence</div>
+                    <div class="success-description">Seamlessly moves between voice, SMS, and WhatsApp based on member preference and response patterns. 87% connection rate vs 23% industry average.</div>
+                    <div class="success-feature">Multi-channel orchestration</div>
+                </div>
+                
+                <div class="success-card">
+                    <div class="success-icon">🧠</div>
+                    <div class="success-title">Complete Context</div>
+                    <div class="success-description">Knows full medical history, recent events, medications, providers, and preferences before dialing. No awkward information gathering.</div>
+                    <div class="success-feature">HIE + ADT + Claims integration</div>
+                </div>
+                
+                <div class="success-card">
+                    <div class="success-icon">🕐</div>
+                    <div class="success-title">24/7 Availability</div>
+                    <div class="success-description">Members answer when convenient for them. Early morning, late night, weekends. Florence is always ready, never tired.</div>
+                    <div class="success-feature">Always-on infrastructure</div>
+                </div>
+                
+                <div class="success-card">
+                    <div class="success-icon">👥</div>
+                    <div class="success-title">Human Supervised</div>
+                    <div class="success-description">Every interaction monitored by clinical team. Instant escalation for complex cases. Your team maintains full control and oversight.</div>
+                    <div class="success-feature">Clinical oversight dashboard</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Audio Examples Section -->
+    <section class="audio-examples">
+        <div style="max-width: 1400px; margin: 0 auto; padding: 0 2rem;">
+            <div class="section-header">
+                <h2>Hear Florence in Action</h2>
+                <p>Experience the empathy and clinical precision of our conversational AI</p>
+            </div>
+            
+            <div class="audio-grid">
+                <div class="audio-card">
+                    <div class="audio-header">
+                        <button class="play-button">▶</button>
+                        <div>
+                            <div class="audio-title">Post-Discharge Follow-Up</div>
+                        </div>
+                    </div>
+                    <div class="audio-description">
+                        Florence reaches out within 2 hours of discharge, preventing readmission through medication reconciliation
+                    </div>
+                </div>
+                
+                <div class="audio-card">
+                    <div class="audio-header">
+                        <button class="play-button">▶</button>
+                        <div>
+                            <div class="audio-title">HEDIS Gap Closure</div>
+                        </div>
+                    </div>
+                    <div class="audio-description">
+                        Scheduling overdue mammogram screening with transportation arrangement and reminder setup
+                    </div>
+                </div>
+                
+                <div class="audio-card">
+                    <div class="audio-header">
+                        <button class="play-button">▶</button>
+                        <div>
+                            <div class="audio-title">Medication Adherence</div>
+                        </div>
+                    </div>
+                    <div class="audio-description">
+                        Diabetic member with low PDC gets personalized barriers assessment and pharmacy coordination
+                    </div>
+                </div>
+                
+                <div class="audio-card">
+                    <div class="audio-header">
+                        <button class="play-button">▶</button>
+                        <div>
+                            <div class="audio-title">Complex Care Navigation</div>
+                        </div>
+                    </div>
+                    <div class="audio-description">
+                        Multi-morbidity member gets coordinated specialist appointments and transportation assistance
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Policy Alignment Section -->
+    <section class="policy" style="padding: 2rem 0; background: rgba(0, 229, 255, 0.02);">
+        <div style="max-width: 1400px; margin: 0 auto; padding: 0 2rem;">
+            <div style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
+                <strong style="color: var(--triage-cyan);">Policy alignment:</strong> Built to interoperate under TEFCA's <a href="https://www.healthit.gov/topic/tefca" target="_blank" rel="noopener" style="color: var(--triage-cyan); text-decoration: underline;">"baseline legal and technical requirements"</a>; designed to avoid information‑blocking <a href="https://www.federalregister.gov/documents/2024/07/01/2024-13793/21st-century-cures-act-establishment-of-disincentives-for-health-care-providers-that-have-committed" target="_blank" rel="noopener" style="color: var(--triage-cyan); text-decoration: underline;">"disincentives"</a>; and aligned with CMS's Health Tech Ecosystem to <a href="https://www.cms.gov/health-tech-ecosystem/early-adopters/kill-the-clipboard" target="_blank" rel="noopener" style="color: var(--triage-cyan); text-decoration: underline;">"kill the clipboard"</a>.
+            </div>
+            <div style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 1rem; font-style: italic;">
+                <a href="https://www.cms.gov/newsroom/press-releases/cms-announces-new-health-tech-ecosystem-early-adopters-program" target="_blank" rel="noopener" style="color: var(--triage-cyan); text-decoration: underline;">"We pledge to build conversational AI assistants that enhance human connection in healthcare."</a> - CMS Health Tech Ecosystem Early Adopters
+            </div>
+        </div>
+    </section>
+
+    <!-- What We Measure Section -->
+    <section class="metrics" style="padding: 2rem 0;">
+        <div style="max-width: 1400px; margin: 0 auto; padding: 0 2rem;">
+            <h3 style="color: var(--triage-cyan); margin-bottom: 2rem; font-size: 1.5rem;">What we measure in pilots</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                <div style="background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 0.75rem; padding: 1.5rem;">
+                    <ul style="list-style: none; padding: 0; margin: 0; color: var(--text-secondary); line-height: 1.8;">
+                        <li style="margin-bottom: 0.75rem;">• 7‑day post‑discharge contact rate and time‑to‑contact</li>
+                        <li style="margin-bottom: 0.75rem;">• Medication reconciliation completion and ADE flags</li>
+                        <li style="margin-bottom: 0.75rem;">• Follow‑up scheduling and kept‑visit rate</li>
+                    </ul>
+                </div>
+                <div style="background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 0.75rem; padding: 1.5rem;">
+                    <ul style="list-style: none; padding: 0; margin: 0; color: var(--text-secondary); line-height: 1.8;">
+                        <li style="margin-bottom: 0.75rem;">• Risk‑adjusted 30‑day ED revisits/readmissions</li>
+                        <li style="margin-bottom: 0.75rem;">• Gap closure (med adherence, A1c, BP), CAHPS experience signals</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
+                <strong>Context:</strong> Medicare's risk‑adjusted readmission rate remains about <a href="https://www.medpac.gov/wp-content/uploads/2024/12/Dec2024_MedPAC_data_book_excerpt-v1C.pdf#page=10" target="_blank" rel="noopener" style="color: var(--triage-cyan); text-decoration: underline;">"15.0%"</a>; ADEs drive <a href="https://www.cdc.gov/medicationsafety/features/older-adult-adverse-drug-events/index.html" target="_blank" rel="noopener" style="color: var(--triage-cyan); text-decoration: underline;">"~500k hospitalizations"</a> annually.
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <h2>Ready to Transform Your MA Performance?</h2>
+            <p>Schedule an executive briefing to see Florence in action</p>
+            <a href="https://calendly.com/nightingalemd" class="cta-button-large">Schedule Executive Demo</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>Important Notice:</strong> Florence AI assists healthcare professionals but does not replace clinical judgment. All medical decisions remain under the supervision of licensed healthcare providers. HIPAA compliant and SOC 2 Type II certified.</p>
+        <p style="margin-top: 1rem;">© 2025 NightingaleMD. All rights reserved. | <a href="#" style="color: var(--triage-cyan);">Privacy Policy</a> | <a href="#" style="color: var(--triage-cyan);">Terms of Service</a></p>
+    </footer>
+
+    <script>
+        // Console Tab Switching
+        function showConsoleTab(tabName) {
+            // Hide all content
+            document.getElementById('ccm-content').style.display = 'none';
+            document.getElementById('tcm-content').style.display = 'none';
+            document.getElementById('complex-content').style.display = 'none';
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.console-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected content and activate tab
+            if (tabName === 'ccm') {
+                document.getElementById('ccm-content').style.display = 'grid';
+                tabs[0].classList.add('active');
+            } else if (tabName === 'tcm') {
+                document.getElementById('tcm-content').style.display = 'grid';
+                tabs[1].classList.add('active');
+            } else if (tabName === 'complex') {
+                document.getElementById('complex-content').style.display = 'grid';
+                tabs[2].classList.add('active');
+            }
+        }
+
+        // Initialize everything on DOM load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update live timestamps
+            function updateTimestamp() {
+                const now = new Date();
+                const timeString = now.toISOString().substr(11, 8) + ' UTC';
+                const svgTimestamp = document.getElementById('svgTimestamp');
+                if (svgTimestamp) svgTimestamp.textContent = timeString;
+            }
+            
+            updateTimestamp();
+            setInterval(updateTimestamp, 1000);
+            
+            // Dynamic metrics updates
+            function updateMetrics() {
+                const memberCountElement = document.getElementById('memberCount');
+                const activeCountElement = document.getElementById('activeCount');
+                const queueCountElement = document.getElementById('queueCount');
+                const alertCountElement = document.getElementById('alertCount');
+                
+                if (memberCountElement) {
+                    const currentCount = parseInt(memberCountElement.textContent.replace(',', ''));
+                    const variation = Math.floor(Math.random() * 20 - 10);
+                    const newCount = Math.max(10000, currentCount + variation);
+                    memberCountElement.textContent = newCount.toLocaleString();
+                }
+                
+                if (activeCountElement) {
+                    const variation = Math.floor(Math.random() * 50 - 25);
+                    const newCount = Math.max(1000, 1247 + variation);
+                    activeCountElement.textContent = newCount.toLocaleString();
+                }
+                
+                if (queueCountElement) {
+                    const variation = Math.floor(Math.random() * 20 - 10);
+                    const newCount = Math.max(0, 89 + variation);
+                    queueCountElement.textContent = newCount.toString();
+                }
+                
+                if (alertCountElement) {
+                    const variation = Math.floor(Math.random() * 6 - 3);
+                    const newCount = Math.max(0, 3 + variation);
+                    alertCountElement.textContent = newCount.toString();
+                }
+            }
+            
+            // Update metrics every 3 seconds
+            setInterval(updateMetrics, 3000);
+
+            // Initialize first console tab
+            showConsoleTab('ccm');
+        });
+    </script>
+</body>
+</html>
+

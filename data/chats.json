@@ -1,0 +1,95 @@
+[
+  {
+    "id": "post_discharge_copd",
+    "title": "Post-Discharge COPD Care",
+    "audio": "audio/copd.mp3",
+    "dialog": [
+      ["patient","Morning Florence, my breathing's a little tight."],
+      ["florence","I'm on it. Your discharge notes show COPD--let's rate your breathlessness first."],
+      ["patient","Maybe a 4 when I'm resting, 6 if I walk upstairs."],
+      ["florence","Got it ✅. Rescue inhaler today?"],
+      ["patient","Only once."],
+      ["florence","👍 Nice control. Any dizziness or chest pain?"],
+      ["patient","No dizziness, mild chest pressure last night."],
+      ["florence","Pressure <em>gone</em> now, correct?"],
+      ["patient","Yes, totally gone."],
+      ["florence","Great. I can move your pulmonology follow-up to tomorrow 10 AM and schedule Lyft--want me to lock that in?"],
+      ["patient","Yes, please."],
+      ["florence","All set 🚗. Driver Miguel arrives 9:15 AM and waits for you. Anything else on your mind?"],
+      ["patient","What will they check at the visit?"],
+      ["florence","Spirometry, oxygen saturation and a medication tune-up. I'll text a prep list. Sound good?"],
+      ["patient","Perfect, thanks!"],
+      ["florence","You breathe, I'll handle the rest 💙"]
+    ]
+  },
+  {
+    "id": "mammogram_espanol",
+    "title": "Mamografía & Transporte (ES)",
+    "audio": "audio/mammo_es.mp3",
+    "dialog": [
+      ["patient","¿Hola Florence? Hace 3 años de mi última mamografía."],
+      ["florence","¡Buenos días María! Sí, tu historial muestra 2021. Vayamos a <strong>agendar</strong>."],
+      ["patient","Pero me asusta y no tengo quién me lleve."],
+      ["florence","Entiendo. 1️⃣ Te consigo transporte cubierto por tu seguro. 2️⃣ Te explico el proceso paso a paso."],
+      ["patient","¿Transporte gratis?"],
+      ["florence","Correcto 🚘. ¿Viernes 9:15 AM te conviene?"],
+      ["patient","Sí."],
+      ["florence","Chofer Carlos te recoge, espera y te regresa. El examen dura 15 min."],
+      ["patient","¿Duele?"],
+      ["florence","Es incómodo unos segundos. Más de 80% de hallazgos tempranos NO son cáncer y el tratamiento es mucho más sencillo."],
+      ["patient","Eso me tranquiliza."],
+      ["florence","Te acompaño en todo momento. Te llamaré después con resultados 👩‍⚕️"]
+    ]
+  },
+  {
+    "id": "diabetes_gap",
+    "title": "Diabetes Gap Closure",
+    "audio": "audio/diabetes.mp3",
+    "dialog": [
+      ["patient","Hi Florence, my A1C was high last time. What now?"],
+      ["florence","Your last was 7.8%. Let's schedule your three-month follow-up lab."],
+      ["patient","Soonest works."],
+      ["florence","Quest Maple has Tue 8 AM or Thu 2 PM."],
+      ["patient","Tuesday."],
+      ["florence","Booked ✅. Lyft ride?"],
+      ["patient","Yes please."],
+      ["florence","Done. Also, Dr Lee may add Metformin ER. Any questions about side-effects?"],
+      ["patient","Does it hurt my stomach?"],
+      ["florence","ER version reduces that. Take with food; I'll check in 48h."],
+      ["patient","Thanks, feel better already."],
+      ["florence","That's the plan--steady wins 🏆"]
+    ]
+  },
+  {
+    "id": "nurse_escalation",
+    "title": "Human Escalation - Chest Pain",
+    "audio": "audio/escalation.mp3",
+    "dialog": [
+      ["patient","Florence, I'm having chest pain and tightness."],
+      ["florence","Location 1-10?"],
+      ["patient","About 7 in the center."],
+      ["florence","⚠️ Escalating now... <i>Connecting you to Nurse Sarah.</i>"],
+      ["nurse","Hi, I'm Nurse Sarah. Breathless when resting?"],
+      ["patient","A little."],
+      ["nurse","Any nausea, sweating?"],
+      ["patient","Sweaty palms, yes."],
+      ["nurse","We're calling 911. Ambulance ETA 6 min. Stay seated, chew an aspirin if not allergic. Florence will stay on the line."],
+      ["florence","Margaret, ambulance confirmed. You're not alone--we've got you ❤️"]
+    ]
+  },
+  {
+    "id": "record_explain",
+    "title": "Health-Record Q&A",
+    "audio": "audio/records.mp3",
+    "dialog": [
+      ["patient","Florence, my portal shows 'eGFR = 58 mL/min'--what does that mean?"],
+      ["florence","eGFR measures kidney filtering. 58 is mild stage-3. Many people live decades without issues."],
+      ["patient","Should I worry?"],
+      ["florence","Not panic 👌. Key is BP control & labs every 6 months. Dr Allen listed Lisinopril--great for kidneys."],
+      ["patient","Side-effects?"],
+      ["florence","Possible light cough or dizziness first week. I'll set a check-in for day 7."],
+      ["patient","Thanks, that helps."],
+      ["florence","Anytime. Understanding > uncertainty 📊"]
+    ]
+  }
+]

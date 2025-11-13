@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Florence SMART Health Card for Medicare | FHIR R4 Interoperability | NightingaleMD</title>
+    <meta name="description" content="Florence™ AI Voice Assistant — The concierge every Medicare patient deserves. Cut 65% readmissions. Available 24/7 in 30+ languages. Instant SMART Health Card QR | Scan anywhere at check-in.">
+    
+    <link rel="icon" type="image/png" href="icons/icon-192.png">
+    <link rel="icon" href="icons/icon-192.png">
+    <link rel="preload" href="nightingale-logo.png" as="image">
+    <link rel="preload" href="styles.css" as="style">
+    
+    <meta property="og:title" content="Florence AI Health Navigator | NightingaleMD">
+    <meta property="og:description" content="AI-powered healthcare navigation with human escalation. Cut care gaps by 75%.">
+    <meta property="og:image" content="https://nightingalemd.ai/og-image.jpg">
+    <meta property="og:url" content="https://nightingalemd.ai">
+    <meta property="og:type" content="website">
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#06080E">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="motion.css">
+    <link rel="stylesheet" href="typing.css">
+    <link rel="stylesheet" href="voice-waves.css">
+</head>
+<body>
+    <canvas id="bgStars"></canvas>
+    <canvas id="sparks"></canvas>
+    
+    <header class="nav-header">
+        <nav class="nav-container">
+            <a href="/" class="logo-link">
+                <div class="logo-halo">
+                    <img src="nightingale-logo.png" alt="NightingaleMD" class="logo-image" width="40" height="40">
+                </div>
+                <span class="logo-text">NightingaleMD</span>
+            </a>
+            <div class="nav-links">
+    <a href="/" class="nav-link active">For Patients</a>
+    <a href="providers.html" class="nav-link">For Providers</a>
+    <a href="healthplans.html" class="nav-link">For Health Plans</a>
+    <a href="news.html" class="nav-link">News</a>
+    <a href="https://calendly.com/nightingalemd" target="_blank" class="btn btn-primary">Try Florence</a>
+</div>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </nav>
+    </header>
+
+    <section id="hero" class="hero">
+    <div class="hero-copy">
+        <h1>NightingaleMD</h1>
+        <h2 class="accent">Florence™, the AI Voice Navigator</h2>
+        <h3 id="typewrite">All your health data, one trusted voice.</h3>
+        <p class="sub">Florence unifies every lab, note and medication—then explains next steps in plain English, on the phone, 24/7.</p>
+    </div>
+
+    <div class="hero-phone-container">
+        <div class="phone-with-waves">
+            <div class="hero-phone phone">
+                <div class="screen">
+                    <div class="messages" id="heroChat"></div>
+                </div>
+            </div>
+            <div class="voice-wave"></div>
+            <div class="voice-wave delay-1"></div>
+            <div class="voice-wave delay-2"></div>
+        </div>
+    </div>
+</section>
+<section class="cta-bar">
+    <a href="#patient-chats" class="btn hollow">See Florence in Action</a>
+</section>
+    <main class="wrapper">
+        <section class="demo-visual">
+            <div class="demo-container">
+                <div class="demo-left">
+                    <h2 class="demo-title">Your Personal Health Navigator</h2>
+                    <p class="demo-subtitle">Florence handles the complexity. You get care.</p>
+                    
+                    <div class="demo-features">
+                        <div class="feature-visual" data-reveal>
+                            <div class="feature-icon-wrap">
+                                <span class="feature-icon">🏥</span>
+                            </div>
+                            <div class="feature-text">
+                                <h3>Your Complete Health Record</h3>
+                                <p>All your medical data from every provider, unified instantly</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-visual" data-reveal>
+                            <div class="feature-icon-wrap">
+                                <span class="feature-icon">💬</span>
+                            </div>
+                            <div class="feature-text">
+                                <h3>Doctor-Grade Explanations</h3>
+                                <p>Florence turns numbers into clear, actionable steps.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="feature-visual" data-reveal>
+                            <div class="feature-icon-wrap">
+                                <span class="feature-icon">🔄</span>
+                            </div>
+                            <div class="feature-text">
+                                <h3>Care Loop Closed</h3>
+                                <p>Tasks & alerts sync back to your team.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="demo-right">
+                    <div class="mini-records-hub" id="miniRecordsHub">
+                        <div class="mini-hub-wrapper">
+                            <svg class="hub-connections" viewBox="0 0 350 350">
+                                <defs>
+                                    <radialGradient id="pulseGradient">
+                                        <stop offset="0%" style="stop-color:#1FC9C8;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#1FC9C8;stop-opacity:0" />
+                                    </radialGradient>
+                                </defs>
+                                </svg>
+                            
+                            <div class="mini-hub">
+                                <div class="hub-glow-layer"></div>
+                                <img src="icons/nightingale_sphere_large.png" alt="NightingaleMD Hub" class="mini-hub-img sphere-logo">
+                            </div>
+                            
+                            <div class="mini-hub-icon" data-index="0" style="--angle: 0;">
+                                <img src="icons/cms_dark.png" alt="CMS">
+                            </div>
+                            <div class="mini-hub-icon" data-index="1" style="--angle: 45;">
+                                <img src="icons/carequality_dark.png" alt="CareQuality">
+                            </div>
+                            <div class="mini-hub-icon" data-index="2" style="--angle: 90;">
+                                <img src="icons/pharmacy_rx_dark.png" alt="Pharmacy">
+                            </div>
+                            <div class="mini-hub-icon" data-index="3" style="--angle: 135;">
+                                <img src="icons/commonwell_dark.png" alt="CommonWell">
+                            </div>
+                            <div class="mini-hub-icon" data-index="4" style="--angle: 180;">
+                                <img src="icons/ehealth_dark.png" alt="eHealth">
+                            </div>
+                            <div class="mini-hub-icon" data-index="5" style="--angle: 225;">
+                                <img src="icons/mybluebutton_dark.png" alt="MyBlueButton">
+                            </div>
+                            <div class="mini-hub-icon" data-index="6" style="--angle: 270;">
+                                <img src="icons/diagnostic_labs_text_dark.png" alt="Labs">
+                            </div>
+                            <div class="mini-hub-icon" data-index="7" style="--angle: 315;">
+                                <img src="icons/regional_hie_rhio_dark.png" alt="Regional HIE">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="qr">
+    <h2>Instant Health Sharing<br><span>Nation‑wide Interoperability</span></h2>
+    <div class="qr-grid">
+        <div class="qr-copy">
+            <p class="tagline">Scan Once. Get Care Anywhere.</p>
+            <ul class="benefits">
+                <li><strong>Zero paperwork.</strong> Check‑in with a single SMART Health Card or QR.</li>
+                <li><strong>Bi‑directional.</strong> Clinic face‑sheet out; visit notes back in FHIR R4.</li>
+                <li><strong>CMS early adopter.</strong> Built to meet the Kill the Clipboard pledge.</li>
+            </ul>
+            <p class="qr-footnote">Receiving clinicians can write back visit data — no forms required.</p>
+        </div>
+        <div class="qr-card">
+            <canvas id="qrCanvas"></canvas>
+            <div style="display: flex; gap: 0.5rem; margin-top: 1rem; justify-content: center; flex-wrap: wrap;">
+                <p class="badge">FHIR R4</p>
+                <p class="badge badge--cms">CMS Early Adopter '25</p>
+            </div>
+        </div>
+    </div>
+    <figure class="cms-certificate">
+      <img src="assets/images/cms-certificate.jpg" alt="CMS Early-Adopter Certificate presented to NightingaleMD, signed by Dr. Mehmet Oz and Amy Gleason, July 30 2025" loading="lazy" width="600" height="450">
+      <figcaption>Official CMS certificate recognizing NightingaleMD as an early adopter of the Health‑Tech Ecosystem – signed by CMS Administrator <strong>Dr. Mehmet Oz</strong> and Innovation Lead <strong>Amy Gleason</strong>.</figcaption>
+    </figure>
+</section>
+<section class="security-info">
+    <h3>HIPAA-Compliant Business Associate</h3>
+    <p>NightingaleMD operates as a HIPAA Business Associate, adhering to the highest standards of data privacy and security to protect patient information at all times.</p>
+</section>
+        <section id="patient-chats" class="chat-gallery" aria-label="Real Florence conversations">
+            <div class="section-header">
+    <h2>Live Conversations</h2>
+    <p class="section-sub">Provider‑controlled AI: Florence follows your PCP’s protocols and escalates to their nurse or MD when needed.</p>
+</div>
+            
+            <div class="iphone-gallery">
+                <div class="chat-group">
+                    <h5 class="chat-label">Post-Discharge (Hip Replacement)</h5>
+                    <div class="iphone-mockup phone" data-conversation="post_discharge_copd" data-audio="audio/hip.mp3">
+                        <div class="iphone-notch"></div>
+                        <div class="iphone-screen">
+                            <div class="chat-header">
+                                <span class="chat-title">Florence AI</span>
+                                <span class="chat-status">● Active</span>
+                            </div>
+                            <div class="chat-body">
+                                <ul class="messages" id="chat1">
+                                    </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chat-group">
+                    <h5 class="chat-label">Mamografía & Transporte</h5>
+                    <div class="iphone-mockup phone" data-conversation="mammogram_espanol" data-audio="audio/mamo_es.mp3">
+                        <div class="iphone-notch"></div>
+                        <div class="iphone-screen">
+                            <div class="chat-header">
+                                <span class="chat-title">Florence AI</span>
+                                <span class="chat-status">● Active</span>
+                            </div>
+                            <div class="chat-body">
+                                <ul class="messages" id="chat2">
+                                    </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chat-group">
+                    <h5 class="chat-label">Diabetes Gap Closure</h5>
+                    <div class="iphone-mockup phone" data-conversation="diabetes_gap" data-audio="audio/diabetes.mp3">
+                        <div class="iphone-notch"></div>
+                        <div class="iphone-screen">
+                            <div class="chat-header">
+                                <span class="chat-title">Florence AI</span>
+                                <span class="chat-status">● Active</span>
+                            </div>
+                            <div class="chat-body">
+                                <ul class="messages" id="chat3">
+                                    </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="records" class="dashboard-section">
+            <div class="section-header">
+                <h2 class="section-title">Understand Your Health Records</h2>
+                <p class="section-sub">Florence doesn't just show data—she explains it in plain English (or any which of 30 other languages)</p>
+            </div>
+
+            <section class="stats-compact">
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <div>
+                            <span class="stat-number metric" data-target="30">0</span>
+                            <span class="stat-suffix">+</span>
+                        </div>
+                        <span class="stat-label">Languages Spoken</span>
+                    </div>
+                    <div class="stat-item">
+                        <div>
+                            <span class="stat-number metric" data-target="90">0</span>
+                            <span class="stat-suffix">%</span>
+                        </div>
+                        <span class="stat-label">Hospitals Connected</span>
+                    </div>
+                    <div class="stat-item">
+                        <div>
+                            <span class="stat-number metric" data-target="1.4">0</span>
+                            <span class="stat-suffix">M</span>
+                        </div>
+                        <span class="stat-label">Practitioners Connected</span>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="kpi-row">
+                <div class="tile critical">
+                    <span id="crit-count">0</span>
+                    <small>Critical Labs</small>
+                </div>
+                <div class="tile warning">
+                    <span id="warn-count">0</span>
+                    <span class="stat-suffix"></span>
+                    <small>Warning Labs</small>
+                </div>
+                <div class="tile neutral">
+                    <span id="normal-count">0</span>
+                    <small>Labs in Target</small>
+                </div>
+            </div>
+            
+            <div class="dashboard-grid">
+                <div class="chart-container">
+                    <canvas id="esrdTrend"></canvas>
+                </div>
+                
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Lab Test</th>
+                                <th>Current</th>
+                                <th>Target Range</th>
+                                <th>Status</th>
+                                <th>Action Required</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="florence-summary">
+                <blockquote>
+                    "John, your hemoglobin dropped to 8.2—let's increase your EPO dose. Your potassium hit 6.3, so I'm scheduling dietary counseling for tomorrow. Your phosphorus is trending up, but the new binder should help. I'll check back in 48 hours."
+                </blockquote>
+            </div>
+        </section>
+
+        <section class="escalation-modern">
+            <div class="section-header">
+                <h2>AI First. Humans Ready.</h2>
+            </div>
+            
+            <div class="escalation-visual">
+                <div class="escalation-item">
+                    <div class="escalation-icon-wrap">
+                        <img src="nightingale-logo.png" alt="Florence AI" style="width: 40px;">
+                    </div>
+                    <h3>Florence AI</h3>
+                    <p>Instant 24/7</p>
+                </div>
+                
+                <div class="escalation-connector">
+                    <div class="connector-line"></div>
+                    <span class="connector-time">30 sec</span>
+                </div>
+                
+                <div class="escalation-item">
+                    <div class="escalation-icon-wrap">
+                        <span class="escalation-icon">👩‍⚕️</span>
+                    </div>
+                    <h3>RN Backup</h3>
+                    <p>When needed</p>
+                </div>
+                
+                <div class="escalation-connector">
+                    <div class="connector-line"></div>
+                    <span class="connector-time">2 min</span>
+                </div>
+                
+                <div class="escalation-item">
+                    <div class="escalation-icon-wrap">
+                        <span class="escalation-icon">👨‍⚕️</span>
+                    </div>
+                    <h3>MD Consult</h3>
+                    <p>For critical</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-healthy" class="content-section">
+            <div class="container">
+                <h2>How Florence Helps You Stay Healthy</h2>
+                <div class="health-cards">
+                    <div class="health-card">
+                        <svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="15" y="20" width="50" height="45" rx="4" fill="#1FC9C8" opacity="0.2" stroke="#1FC9C8" stroke-width="2"/>
+                            
+                            <rect x="15" y="20" width="50" height="12" rx="4" fill="#1FC9C8"/>
+                            
+                            <circle cx="25" cy="18" r="2" fill="none" stroke="#1FC9C8" stroke-width="2"/>
+                            <circle cx="55" cy="18" r="2" fill="none" stroke="#1FC9C8" stroke-width="2"/>
+                            
+                            <line x1="25" y1="38" x2="35" y2="38" stroke="#1FC9C8" stroke-width="2" opacity="0.6"/>
+                            <line x1="25" y1="45" x2="35" y2="45" stroke="#1FC9C8" stroke-width="2" opacity="0.6"/>
+                            <line x1="25" y1="52" x2="35" y2="52" stroke="#1FC9C8" stroke-width="2" opacity="0.6"/>
+                            
+                            <path d="M45 40 Q48 37 52 40 L52 50 Q52 54 48 54 L44 54 Q40 54 40 50 L40 40" 
+                                  fill="#FFD700" stroke="#FFD700" stroke-width="1"/>
+                            
+                            <circle cx="46" cy="52" r="1.5" fill="#FFD700"/>
+                            
+                            <circle cx="46" cy="46" r="8" fill="none" stroke="#FFD700" stroke-width="2" opacity="0">
+                                <animate attributeName="r" values="8;16;24" dur="2s" repeatCount="indefinite"/>
+                                <animate attributeName="opacity" values="0.8;0.4;0" dur="2s" repeatCount="indefinite"/>
+                            </circle>
+                            
+                            <circle cx="46" cy="46" r="8" fill="none" stroke="#FFD700" stroke-width="1" opacity="0">
+                                <animate attributeName="r" values="8;20;32" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+                                <animate attributeName="opacity" values="0.6;0.2;0" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+                            </circle>
+                        </svg>
+                        <h3>1. Never Miss a Screen</h3>
+                        <p>Auto-schedule preventive tests · Smart reminders · Ride coordination</p>
+                    </div>
+
+                    <div class="health-card">
+                        <svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M25 15 Q25 25 35 30 Q45 35 45 45 Q45 55 40 60" 
+                                  fill="none" stroke="#1FC9C8" stroke-width="3"/>
+                            
+                            <circle cx="20" cy="12" r="3" fill="#1FC9C8"/>
+                            <circle cx="30" cy="12" r="3" fill="#1FC9C8"/>
+                            
+                            <circle cx="40" cy="65" r="8" fill="none" stroke="#1FC9C8" stroke-width="3"/>
+                            <circle cx="40" cy="65" r="4" fill="#1FC9C8" opacity="0.3"/>
+                            
+                            <g stroke="#4ADE80" stroke-width="2" fill="none">
+                                <path d="M15 40 L20 40 L22 35 L24 45 L26 30 L28 50 L30 40 L65 40" 
+                                      stroke-dasharray="100" stroke-dashoffset="100" opacity="0">
+                                    <animate attributeName="stroke-dashoffset" values="100;0" dur="2s" begin="0s" repeatCount="indefinite"/>
+                                    <animate attributeName="opacity" values="0;1;1;0" dur="2s" begin="0s" repeatCount="indefinite"/>
+                                </path>
+                            </g>
+                            
+                            <g stroke="#4ADE80" stroke-width="3" fill="none">
+                                <path d="M52 38 L58 44 L68 34" stroke-dasharray="20" stroke-dashoffset="20" opacity="0">
+                                    <animate attributeName="stroke-dashoffset" values="20;0" dur="0.8s" begin="1.5s" repeatCount="indefinite"/>
+                                    <animate attributeName="opacity" values="0;1;1;0" dur="2s" begin="1.5s" repeatCount="indefinite"/>
+                                </path>
+                            </g>
+                            
+                            <circle cx="60" cy="40" r="12" fill="none" stroke="#4ADE80" stroke-width="2" opacity="0">
+                                <animate attributeName="opacity" values="0;0.3;0.3;0" dur="2s" begin="1.5s" repeatCount="indefinite"/>
+                            </circle>
+                        </svg>
+                        <h3>2. Florence Has Your Doctor's Ear</h3>
+                        <p>Follows the care plan your clinician sets · Nudges you at the right time · Reports back automatically</p>
+                    </div>
+
+                    <div class="health-card">
+                        <svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="20" y="15" width="40" height="55" rx="3" fill="#1FC9C8" opacity="0.1" stroke="#1FC9C8" stroke-width="2"/>
+                            
+                            <rect x="35" y="10" width="10" height="8" rx="2" fill="#1FC9C8"/>
+                            <rect x="37" y="12" width="6" height="4" rx="1" fill="#060E0E"/>
+                            
+                            <rect x="25" y="25" width="8" height="8" rx="1" fill="none" stroke="#1FC9C8" stroke-width="1"/>
+                            <path d="M27 29 L29 31 L31 27" stroke="#4ADE80" stroke-width="2" fill="none" stroke-dasharray="8" stroke-dashoffset="8">
+                                <animate attributeName="stroke-dashoffset" values="8;0" dur="0.5s" begin="0.5s" fill="freeze"/>
+                            </path>
+                            <line x1="37" y1="29" x2="50" y2="29" stroke="#1FC9C8" stroke-width="1" opacity="0.6"/>
+                            
+                            <rect x="25" y="40" width="8" height="8" rx="1" fill="none" stroke="#1FC9C8" stroke-width="1"/>
+                            <path d="M27 44 L29 46 L31 42" stroke="#4ADE80" stroke-width="2" fill="none" stroke-dasharray="8" stroke-dashoffset="8">
+                                <animate attributeName="stroke-dashoffset" values="8;0" dur="0.5s" begin="1.5s" fill="freeze"/>
+                            </path>
+                            <line x1="37" y1="44" x2="50" y2="44" stroke="#1FC9C8" stroke-width="1" opacity="0.6"/>
+                            
+                            <rect x="25" y="55" width="8" height="8" rx="1" fill="none" stroke="#1FC9C8" stroke-width="1"/>
+                            <path d="M27 59 L29 61 L31 57" stroke="#4ADE80" stroke-width="2" fill="none" stroke-dasharray="8" stroke-dashoffset="8">
+                                <animate attributeName="stroke-dashoffset" values="8;0" dur="0.5s" begin="2.5s" fill="freeze"/>
+                            </path>
+                            <line x1="37" y1="59" x2="50" y2="59" stroke="#1FC9C8" stroke-width="1" opacity="0.6"/>
+                            
+                            <circle cx="55" cy="30" r="2" fill="#4ADE80" opacity="0">
+                                <animate attributeName="opacity" values="0;1;0" dur="0.3s" begin="0.5s"/>
+                            </circle>
+                            <circle cx="55" cy="45" r="2" fill="#4ADE80" opacity="0">
+                                <animate attributeName="opacity" values="0;1;0" dur="0.3s" begin="1.5s"/>
+                            </circle>
+                            <circle cx="55" cy="60" r="2" fill="#4ADE80" opacity="0">
+                                <animate attributeName="opacity" values="0;1;0" dur="0.3s" begin="2.5s"/>
+                            </circle>
+                        </svg>
+                        <h3>3. Protocol-Perfect Follow-Through</h3>
+                        <p>Tracks meds, vitals & tasks · Adjusts when goals change · Closes the loop with your team</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="advocate" class="content-section">
+            <div class="container">
+                <h2>Your Personal Health Advocate</h2>
+                <div class="advocate-content">
+                    <p class="lead">Florence doesn't just track your health data—she actively advocates for your wellbeing, ensuring you get the care you deserve when you need it most.</p>
+                    
+                    <div class="advocate-features">
+    <div class="health-cards">
+        <div class="health-card">
+            <div class="feature-icon">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="20" stroke="#1FC9C8" stroke-width="2"/><path d="M16 24l6 6 12-12" stroke="#4ADE80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h3>Proactive Care Coordination</h3>
+            <p>Florence monitors your health trends and proactively schedules follow-ups before issues become serious.</p>
+        </div>
+        <div class="health-card">
+            <div class="feature-icon">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="12" width="32" height="24" rx="4" stroke="#1FC9C8" stroke-width="2"/><path d="M8 20h32M16 28h16" stroke="#1FC9C8" stroke-width="2" stroke-linecap="round"/></svg>
+            </div>
+            <h3>Health Plan Orientation</h3>
+            <p>Cuts through red tape, ensures coverage approval, and helps you understand your benefits.</p>
+        </div>
+        <div class="health-card">
+            <div class="feature-icon">
+                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="16" r="8" stroke="#1FC9C8" stroke-width="2"/><path d="M12 40c0-8 5.4-14.7 12-14.7s12 6.7 12 14.7" stroke="#1FC9C8" stroke-width="2"/><circle cx="24" cy="28" r="2" fill="#4ADE80"/></svg>
+            </div>
+            <h3>Provider Communication</h3>
+            <p>Speaks your doctor's language, ensuring nothing gets lost in translation between appointments.</p>
+        </div>
+    </div>
+</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="instant-ios" class="card-banner app-banner" data-reveal>
+            <div class="app-content">
+                <h2>Florence, in Your Pocket</h2>
+                
+                <div class="app-layout">
+                    <div class="app-visual">
+                        <img src="video/app-preview.gif"
+                             alt="Florence iOS app showing Medicare card scan, HealthKit sync and calendar slots"
+                             width="280" height="560" loading="lazy">
+                    </div>
+
+                    <div class="app-text">
+                        <p><strong>Instant sign-up.</strong> Scan your Medicare card once and watch Florence sync HealthKit and your calendar. Prefer no app? She'll call, text or Whatsapp instead.</p>
+
+                        <ul class="app-benefits">
+                            <li>One-tap Face ID log-in</li>
+                            <li>Real-time vitals &amp; meds directly from HealthKit</li>
+                            <li>Smart scheduling with ride coordination</li>
+                            <li class="alt-channel">No app? Florence can call, text, or WhatsApp instead.</li>
+                        </ul>
+
+                        <div class="store-badges">
+                            <a href="https://apps.apple.com/app/id000000" aria-label="Download on the App Store">
+                                <img src="badges/app-store.svg" alt="">
+                            </a>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="episodic-vs-continuous" class="continuous-care-section">
+            <div class="continuous-care-container">
+                <h2 class="section-title">From Episodic Care to Continuous Advocacy</h2>
+                <p class="section-sub">
+                    Traditional care is fragmented—reactive and episodic. Nightingale introduces continuous, 
+                    connected care: proactive messages, monitoring, education, and real-time support.
+                </p>
+                
+                <div class="continuous-advocate-wrapper">
+                    <svg viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="continuous-care-title continuous-care-desc" class="continuous-care-svg">
+                        <title id="continuous-care-title">Continuous vs Episodic Care Circle</title>
+                        <desc id="continuous-care-desc">A comparison showing sparse episodic care touchpoints versus continuous connected care in a circular flow with real-time monitoring and support</desc>
+                        
+                        <defs>
+                            <linearGradient id="continuousGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#00BFFF;stop-opacity:0.3">
+                                    <animate attributeName="stop-opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite" />
+                                </stop>
+                                <stop offset="50%" style="stop-color:#4ECCA3;stop-opacity:0.5">
+                                    <animate attributeName="stop-opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite" />
+                                </stop>
+                                <stop offset="100%" style="stop-color:#00BFFF;stop-opacity:0.3">
+                                    <animate attributeName="stop-opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite" />
+                                </stop>
+                            </linearGradient>
+                            
+                            <filter id="glow">
+                                <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                                <feMerge>
+                                    <feMergeNode in="coloredBlur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                            
+                            <linearGradient id="rotatingGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#4ECCA3;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#00BFFF;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#4ECCA3;stop-opacity:1" />
+                                <animateTransform
+                                    attributeName="gradientTransform"
+                                    type="rotate"
+                                    from="0 400 400"
+                                    to="360 400 400"
+                                    dur="10s"
+                                    repeatCount="indefinite" />
+                            </linearGradient>
+                        </defs>
+                        
+                        <rect width="800" height="800" fill="#050A30" />
+                        
+                        <g id="episodic-care">
+                            <circle cx="400" cy="400" r="320" fill="none" stroke="#D3D3D3" stroke-width="1" opacity="0.2" stroke-dasharray="10,20"/>
+                            
+                            <text x="400" y="35" text-anchor="middle" fill="#FFD700" font-family="Space Grotesk, sans-serif" font-size="20" font-weight="bold">Traditional Episodic Care</text>
+                            <text x="400" y="60" text-anchor="middle" fill="#D3D3D3" font-family="Inter, sans-serif" font-size="14">Reactive • Fragmented • Visit-Based</text>
+                            
+                            <g transform="translate(400, 80)">
+                                <circle r="15" fill="#FFD700" opacity="0.8"/>
+                                <text y="35" text-anchor="middle" fill="#D3D3D3" font-size="12">Annual Visit</text>
+                            </g>
+                            
+                            <g transform="translate(680, 400)">
+                                <circle r="15" fill="#FFD700" opacity="0.8"/>
+                                <text x="40" y="5" text-anchor="start" fill="#D3D3D3" font-size="12">ER Visit</text>
+                            </g>
+                            
+                            <g transform="translate(120, 400)">
+                                <circle r="15" fill="#FFD700" opacity="0.8"/>
+                                <text x="-40" y="5" text-anchor="end" fill="#D3D3D3" font-size="12">Follow-up</text>
+                            </g>
+                        </g>
+                        
+                        <g id="continuous-care">
+                            <circle cx="400" cy="400" r="220" fill="none" stroke="url(#rotatingGradient)" stroke-width="4" opacity="0.8"/>
+                            
+                            <circle cx="400" cy="400" r="220" fill="none" stroke="#4ECCA3" stroke-width="2" opacity="0.3">
+                                <animate attributeName="r" values="220;225;220" dur="2s" repeatCount="indefinite"/>
+                                <animate attributeName="opacity" values="0.3;0.6;0.3" dur="2s" repeatCount="indefinite"/>
+                            </circle>
+                            
+                            <text x="400" y="390" text-anchor="middle" fill="#4ECCA3" font-family="Space Grotesk, sans-serif" font-size="22" font-weight="bold">Nightingale</text>
+                            <text x="400" y="415" text-anchor="middle" fill="#00BFFF" font-family="Space Grotesk, sans-serif" font-size="18">Continuous Care</text>
+                            <text x="400" y="440" text-anchor="middle" fill="#00BFFF" font-family="Inter, sans-serif" font-size="14">24/7 • Proactive • Connected</text>
+                            
+                            <g transform="rotate(0, 400, 400) translate(400, 180)">
+                                <circle r="10" fill="#4ECCA3" filter="url(#glow)">
+                                    <animate attributeName="r" values="10;13;10" dur="2s" repeatCount="indefinite"/>
+                                </circle>
+                                <text y="-20" text-anchor="middle" fill="#4ECCA3" font-size="12" font-weight="600">Daily Check</text>
+                            </g>
+                            
+                            <g transform="rotate(40, 400, 400) translate(400, 180)">
+                                <circle r="10" fill="#4ECCA3" filter="url(#glow)">
+                                    <animate attributeName="r" values="10;13;10" dur="2s" begin="0.2s" repeatCount="indefinite"/>
+                                </circle>
+                                <text y="30" text-anchor="middle" fill="#4ECCA3" font-size="12" font-weight="600">Med Reminder</text>
+                            </g>
+                            
+                            <g transform="rotate(80, 400, 400) translate(400, 180)">
+                                <circle r="10" fill="#4ECCA3" filter="url(#glow)">
+                                    <animate attributeName="r" values="10;13;10" dur="2s" begin="0.4s" repeatCount="indefinite"/>
+                                </circle>
+                                <text y="30" text-anchor="middle" fill="#4ECCA3" font-size="12" font-weight="600">Lab Alert</text>
+                            </g>
+                            
+                            <g transform="rotate(120, 400, 400) translate(400, 180)">
+                                <circle r="10" fill="#00BFFF" filter="url(#glow)">
+                                    <animate attributeName="r" values="10;13;10" dur="2s" begin="0.6s" repeatCount="indefinite"/>
+                                </circle>
+                                <text y="30" text-anchor="middle" fill="#00BFFF" font-size="12" font-weight="600">ADT Alert</text>
+                            </g>
+                            
+                            <g transform="rotate(160, 400, 400) translate(400, 180)">
+                                <circle r="10" fill="#4ECCA3" filter="url(#glow)">
+                                    <animate attributeName="r" values="10;13;10" dur="2s" begin="0.8s" repeatCount="indefinite"/>
+                                </circle>
+                                <text y="30" text-anchor="middle" fill="#4ECCA3" font-size="12" font-weight="600">Education</text>
+                            </g>
+                            
+                            <g transform="rotate(200, 400, 400) translate(400, 180)">
+                                <circle r="10" fill="#4ECCA3" filter="url(#glow)">
+                                    <animate attributeName="r" values="10;13;10" dur="2s" begin="1.0s" repeatCount="indefinite"/>
+                                </circle>
+                                <text y="30" text-anchor="middle" fill="#4ECCA3" font-size="12" font-weight="600">Florence AI</text>
+                            </g>
+                            
+                            <g transform="rotate(240, 400, 400) translate(400, 180)">
+                                <circle r="10" fill="#4ECCA3" filter="url(#glow)">
+                                    <animate attributeName="r" values="10;13;10" dur="2s" begin="1.2s" repeatCount="indefinite"/>
+                                </circle>
+                                <text y="30" text-anchor="middle" fill="#4ECCA3" font-size="12" font-weight="600">Gap Closure</text>
+                            </g>
+                            
+                            <g transform="rotate(280, 400, 400) translate(400, 180)">
+                                <circle r="10" fill="#00BFFF" filter="url(#glow)">
+                                    <animate attributeName="r" values="10;13;10" dur="2s" begin="1.4s" repeatCount="indefinite"/>
+                                </circle>
+                                <text y="30" text-anchor="middle" fill="#00BFFF" font-size="12" font-weight="600">Update Records</text>
+                            </g>
+                            
+                            <g transform="rotate(320, 400, 400) translate(400, 180)">
+                                <circle r="10" fill="#4ECCA3" filter="url(#glow)">
+                                    <animate attributeName="r" values="10;13;10" dur="2s" begin="1.6s" repeatCount="indefinite"/>
+                                </circle>
+                                <text y="-20" text-anchor="middle" fill="#4ECCA3" font-size="12" font-weight="600">Transport</text>
+                            </g>
+                            
+                            <circle cx="400" cy="180" r="5" fill="#4ECCA3" opacity="0.8">
+                                <animateTransform
+                                    attributeName="transform"
+                                    type="rotate"
+                                    from="0 400 400"
+                                    to="360 400 400"
+                                    dur="5s"
+                                    repeatCount="indefinite" />
+                                <animate attributeName="opacity" values="0.8;0.2;0.8" dur="5s" repeatCount="indefinite"/>
+                            </circle>
+                            
+                            <circle cx="400" cy="180" r="5" fill="#00BFFF" opacity="0.8">
+                                <animateTransform
+                                    attributeName="transform"
+                                    type="rotate"
+                                    from="180 400 400"
+                                    to="540 400 400"
+                                    dur="5s"
+                                    repeatCount="indefinite" />
+                                <animate attributeName="opacity" values="0.8;0.2;0.8" dur="5s" repeatCount="indefinite"/>
+                            </circle>
+                        </g>
+                        
+                        <g transform="translate(50, 720)">
+                            <circle cx="10" cy="10" r="8" fill="#FFD700" opacity="0.8"/>
+                            <text x="25" y="15" fill="#D3D3D3" font-size="14">Episodic touchpoints (rare)</text>
+                            
+                            <circle cx="10" cy="40" r="8" fill="#4ECCA3" filter="url(#glow)"/>
+                            <text x="25" y="45" fill="#4ECCA3" font-size="14">Continuous engagement (24/7)</text>
+                            
+                            <circle cx="10" cy="70" r="8" fill="#00BFFF" filter="url(#glow)"/>
+                            <text x="25" y="75" fill="#00BFFF" font-size="14">Real-time data sync</text>
+                        </g>
+                    </svg>
+                </div>
+                
+                <div class="outer-pulse"></div>
+                <div class="outer-pulse"></div>
+                <div class="outer-pulse"></div>
+                <div class="outer-pulse"></div>
+                
+                <p class="care-footer-text">
+                    This is care that flows—supporting the patient between visits, not just during them.
+                </p>
+            </div>
+        </section>
+
+        <section class="testimonial-single">
+            <div class="testimonial-card card-glass">
+                <div class="testimonial-avatar-placeholder">
+                    <span class="avatar-initials">SC</span>
+                </div>
+                <blockquote class="testimonial-quote">
+                    "Florence gave me back 2 hours every day."
+                </blockquote>
+                <cite class="testimonial-cite">Dr. Sarah Chen, Family Medicine</cite>
+            </div>
+        </section>
+
+        <section id="cta">
+            <a href="#patient-chats" class="btn hollow">See Florence in Action</a>
+            <a href="https://calendly.com/NightingaleMD" target="_blank" class="btn solid">Book a Live Demo</a>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="logo-halo">
+                    <img src="nightingale-logo.png" alt="NightingaleMD" class="footer-logo" width="30" height="30">
+                </div>
+                <span>NightingaleMD</span>
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">HIPAA</a>
+            </div>
+            <p class="footer-copy">&copy; 2024 NightingaleMD. IAL-2 Secure.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <script src="scripts/countUp.js" defer></script>
+    <script src="scripts/lazyload.js" defer></script>
+    <script src="scripts/esrd-dashboard.js" defer></script>
+    <script src="scripts/heroChat.js" defer></script>
+    <script src="scripts/chat-gallery.js" defer></script>
+    <script src="scripts/main.js" defer></script>
+</body>
+</html>

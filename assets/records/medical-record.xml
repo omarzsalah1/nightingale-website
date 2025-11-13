@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ClinicalDocument 
+    xmlns="urn:hl7-org:v3" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="urn:hl7-org:v3 CDA.xsd">
+
+    <!-- CDA Header -->
+    <typeId root="2.16.840.1.113883.1.3" extension="POCD_HD000040"/>
+    <templateId root="2.16.840.1.113883.10.20.22.1.2"/>
+    <id root="2.16.840.1.113883.19.4" extension="TEST-5678"/>
+    <code code="34133-9" codeSystem="2.16.840.1.113883.6.1" displayName="Summarization of Episode Note"/>
+    <title>Clinical Summary</title>
+    <effectiveTime value="20241214160000+0000"/>
+    <confidentialityCode code="N" codeSystem="2.16.840.1.113883.5.25"/>
+    <languageCode code="en-US"/>
+    <setId root="2.16.840.1.113883.19.4" extension="Set2"/>
+    <versionNumber value="1"/>
+
+    <!-- Record Target (Patient) -->
+    <recordTarget>
+        <patientRole>
+            <id root="2.16.840.1.113883.19.3" extension="PAT-123456"/>
+            <patient>
+                <name>
+                    <given>Margaret</given>
+                    <family>Phillips</family>
+                </name>
+                <administrativeGenderCode code="F" codeSystem="2.16.840.1.113883.5.1"/>
+                <birthTime value="19520315"/>
+            </patient>
+            <providerOrganization>
+                <id root="2.16.840.1.113883.19.5" extension="HOSP-100"/>
+                <name>NightingaleMD Health Care Network</name>
+            </providerOrganization>
+        </patientRole>
+    </recordTarget>
+
+    <!-- Author -->
+    <author>
+        <time value="20241214160000+0000"/>
+        <assignedAuthor>
+            <id root="2.16.840.1.113883.19.6" extension="AUTH-200"/>
+            <assignedPerson>
+                <name>
+                    <given>Sarah</given>
+                    <family>Wilson</family>
+                </name>
+            </assignedPerson>
+            <representedOrganization>
+                <id root="2.16.840.1.113883.19.5" extension="HOSP-100"/>
+                <name>NightingaleMD Health Care Network</name>
+            </representedOrganization>
+        </assignedAuthor>
+    </author>
+
+    <!-- Custodian -->
+    <custodian>
+        <assignedCustodian>
+            <representedCustodianOrganization>
+                <id root="2.16.840.1.113883.19.5" extension="HOSP-100"/>
+                <name>NightingaleMD Health Care Network</name>
+            </representedCustodianOrganization>
+        </assignedCustodian>
+    </custodian>
+
+    <!-- Legal Authenticator -->
+    <legalAuthenticator>
+        <time value="20241214160000+0000"/>
+        <signatureCode code="S"/>
+        <assignedEntity>
+            <id root="2.16.840.1.113883.19.6" extension="AUTH-200"/>
+            <assignedPerson>
+                <name>
+                    <given>Sarah</given>
+                    <family>Wilson</family>
+                </name>
+            </assignedPerson>
+            <representedOrganization>
+                <id root="2.16.840.1.113883.19.5" extension="HOSP-100"/>
+                <name>NightingaleMD Health Care Network</name>
+            </representedOrganization>
+        </assignedEntity>
+    </legalAuthenticator>
+
+    <!-- Body -->
+    <component>
+        <structuredBody>
+
+            <!-- Custom "Suspected Conditions" Section -->
+            <component>
+                <section>
+                    <!-- This is not a standard C-CDA section code. We choose a generic code for demonstration. -->
+                    <templateId root="2.16.840.1.113883.10.20.22.2.999" extension="SuspectedConditionsSection"/>
+                    <code code="29308-4" codeSystem="2.16.840.1.113883.6.1" displayName="Diagnosis List"/>
+                    <title>Proposed Suspected Diagnoses for Clinical Validation</title>
+                    <text>
+                        <table border="1" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>HCC</th>
+                                    <th>ICD</th>
+                                    <th>Condition</th>
+                                    <th>Source Evidences</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>238</td>
+                                    <td>I48.0</td>
+                                    <td>Paroxysmal atrial fibrillation</td>
+                                    <td>
+                                        2024-01-02: Xarelto 20 MG (Medication)<br/>
+                                        2024-01-02: Paroxysmal atrial fibrillation mention (Diagnosis)<br/>
+                                        2023-08-22: Paroxysmal atrial fibrillation mention (Encounter)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>226</td>
+                                    <td>I50.9</td>
+                                    <td>Heart failure, unspecified</td>
+                                    <td>
+                                        2021-10-25: EF 60-65% (Diagnostic Evidence)<br/>
+                                        2021-10-04: EF 60% (Diagnostic Evidence)<br/>
+                                        2019-11-11: Furosemide (Medication)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>35</td>
+                                    <td>Z94.83</td>
+                                    <td>Pancreas transplant status</td>
+                                    <td>
+                                        2022-03-16: Pancreas transplant status mention (Procedure Evidence)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>22</td>
+                                    <td>C64.9</td>
+                                    <td>Malignant neoplasm of kidney</td>
+                                    <td>
+                                        2019-10-06: Renal carcinoma mention (Disease/Disorder)
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </text>
+
+                    <!-- Example coded entry for one condition (others could be similarly represented) -->
+                    <!-- Paroxysmal Atrial Fibrillation Entry -->
+                    <entry typeCode="DRIV">
+                        <act classCode="ACT" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.22.4.3" extension="ConditionConcern"/>
+                            <id root="2.16.840.1.113883.19" extension="Concern-PAF"/>
+                            <code code="CONC" codeSystem="2.16.840.1.113883.5.6"/>
+                            <statusCode code="active"/>
+                            <effectiveTime>
+                                <!-- Earliest identified date in the evidence -->
+                                <low value="20240102"/>
+                            </effectiveTime>
+                            <entryRelationship typeCode="SUBJ">
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <templateId root="2.16.840.1.113883.10.20.22.4.4" extension="ConditionObservation"/>
+                                    <id root="2.16.840.1.113883.19" extension="Obs-PAF"/>
+                                    <code code="64572001" codeSystem="2.16.840.1.113883.6.96" displayName="Condition"/>
+                                    <statusCode code="active"/>
+                                    <effectiveTime>
+                                        <low value="20240102"/>
+                                    </effectiveTime>
+                                    <value xsi:type="CD" code="I48.0" codeSystem="2.16.840.1.113883.6.90" displayName="Paroxysmal atrial fibrillation"/>
+                                </observation>
+                            </entryRelationship>
+                        </act>
+                    </entry>
+
+                    <!-- Similar coded entries would be included for the other conditions as desired -->
+                    
+                </section>
+            </component>
+
+            <!-- Problem Section (entries required) -->
+            <component>
+                <section>
+                    <!-- C-CDA 2.1 Problem Section (entries required) templateId -->
+                    <templateId root="2.16.840.1.113883.10.20.22.2.5.1"/>
+                    <code code="11450-4" codeSystem="2.16.840.1.113883.6.1" displayName="Problem List"/>
+                    <title>Problem List</title>
+                    <text>
+                        <table border="1" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Problem</th>
+                                    <th>Date Added</th>
+                                    <th>Provider</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Hypertension (I10)</td>
+                                    <td>2024-01-01</td>
+                                    <td>Dr. Sarah Wilson</td>
+                                </tr>
+                                <tr>
+                                    <td>Type 2 Diabetes Mellitus (E11.9)</td>
+                                    <td>2024-06-01</td>
+                                    <td>Dr. Michael Martinez</td>
+                                </tr>
+                                <tr>
+                                    <td>Asthma (J45.909)</td>
+                                    <td>2024-10-01</td>
+                                    <td>Dr. David Chen</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </text>
+
+                    <!-- Entry: Hypertension -->
+                    <entry typeCode="DRIV">
+                        <!-- Problem Concern Act -->
+                        <act classCode="ACT" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.22.4.3"/>
+                            <id root="2.16.840.1.113883.19" extension="Concern-HYP"/>
+                            <code code="CONC" codeSystem="2.16.840.1.113883.5.6"/>
+                            <statusCode code="active"/>
+                            <effectiveTime>
+                                <low value="20240101"/>
+                            </effectiveTime>
+                            
+                            <author>
+                                <time value="20240101"/>
+                                <assignedAuthor>
+                                    <id root="2.16.840.1.113883.19" extension="PROV-1"/>
+                                    <assignedPerson>
+                                        <name>
+                                            <given>Sarah</given>
+                                            <family>Wilson</family>
+                                        </name>
+                                    </assignedPerson>
+                                </assignedAuthor>
+                            </author>
+
+                            <entryRelationship typeCode="SUBJ">
+                                <!-- Problem Observation -->
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <templateId root="2.16.840.1.113883.10.20.22.4.4"/>
+                                    <id root="2.16.840.1.113883.19" extension="ProbObs-HYP"/>
+                                    <code code="64572001" codeSystem="2.16.840.1.113883.6.96" displayName="Condition"/>
+                                    <statusCode code="active"/>
+                                    <effectiveTime>
+                                        <low value="20240101"/>
+                                    </effectiveTime>
+                                    <value xsi:type="CD" code="38341003" codeSystem="2.16.840.1.113883.6.96" displayName="Hypertensive disorder">
+                                        <!-- ICD Translation -->
+                                        <translation code="I10" codeSystem="2.16.840.1.113883.6.90" displayName="Essential (primary) hypertension"/>
+                                    </value>
+                                </observation>
+                            </entryRelationship>
+                        </act>
+                    </entry>
+
+                    <!-- Entry: Type 2 Diabetes Mellitus -->
+                    <entry typeCode="DRIV">
+                        <act classCode="ACT" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.22.4.3"/>
+                            <id root="2.16.840.1.113883.19" extension="Concern-DIAB"/>
+                            <code code="CONC" codeSystem="2.16.840.1.113883.5.6"/>
+                            <statusCode code="active"/>
+                            <effectiveTime>
+                                <low value="20240601"/>
+                            </effectiveTime>
+                            
+                            <author>
+                                <time value="20240601"/>
+                                <assignedAuthor>
+                                    <id root="2.16.840.1.113883.19" extension="PROV-2"/>
+                                    <assignedPerson>
+                                        <name>
+                                            <given>Michael</given>
+                                            <family>Martinez</family>
+                                        </name>
+                                    </assignedPerson>
+                                </assignedAuthor>
+                            </author>
+
+                            <entryRelationship typeCode="SUBJ">
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <templateId root="2.16.840.1.113883.10.20.22.4.4"/>
+                                    <id root="2.16.840.1.113883.19" extension="ProbObs-DIAB"/>
+                                    <code code="64572001" codeSystem="2.16.840.1.113883.6.96" displayName="Condition"/>
+                                    <statusCode code="active"/>
+                                    <effectiveTime>
+                                        <low value="20240601"/>
+                                    </effectiveTime>
+                                    <value xsi:type="CD" code="44054006" codeSystem="2.16.840.1.113883.6.96" displayName="Diabetes mellitus type 2">
+                                        <translation code="E11.9" codeSystem="2.16.840.1.113883.6.90" displayName="Type 2 diabetes mellitus without complications"/>
+                                    </value>
+                                </observation>
+                            </entryRelationship>
+                        </act>
+                    </entry>
+
+                    <!-- Entry: Asthma -->
+                    <entry typeCode="DRIV">
+                        <act classCode="ACT" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.22.4.3"/>
+                            <id root="2.16.840.1.113883.19" extension="Concern-ASTH"/>
+                            <code code="CONC" codeSystem="2.16.840.1.113883.5.6"/>
+                            <statusCode code="active"/>
+                            <effectiveTime>
+                                <low value="20241001"/>
+                            </effectiveTime>
+                            
+                            <author>
+                                <time value="20241001"/>
+                                <assignedAuthor>
+                                    <id root="2.16.840.1.113883.19" extension="PROV-3"/>
+                                    <assignedPerson>
+                                        <name>
+                                            <given>David</given>
+                                            <family>Chen</family>
+                                        </name>
+                                    </assignedPerson>
+                                </assignedAuthor>
+                            </author>
+
+                            <entryRelationship typeCode="SUBJ">
+                                <observation classCode="OBS" moodCode="EVN">
+                                    <templateId root="2.16.840.1.113883.10.20.22.4.4"/>
+                                    <id root="2.16.840.1.113883.19" extension="ProbObs-ASTH"/>
+                                    <code code="64572001" codeSystem="2.16.840.1.113883.6.96" displayName="Condition"/>
+                                    <statusCode code="active"/>
+                                    <effectiveTime>
+                                        <low value="20241001"/>
+                                    </effectiveTime>
+                                    <value xsi:type="CD" code="195967001" codeSystem="2.16.840.1.113883.6.96" displayName="Asthma">
+                                        <translation code="J45.909" codeSystem="2.16.840.1.113883.6.90" displayName="Unspecified asthma, uncomplicated"/>
+                                    </value>
+                                </observation>
+                            </entryRelationship>
+                        </act>
+                    </entry>
+
+                </section>
+            </component>
+        </structuredBody>
+    </component>
+</ClinicalDocument>

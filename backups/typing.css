@@ -1,0 +1,24 @@
+/* Hero Typewriter Effect */
+.typing {
+    --ch: 38;                 /* JS will update this */
+    width: calc(var(--ch) * 1ch);
+    white-space: nowrap;      /* RESTORED: This fixes the animation wrapping issue. */
+    overflow: hidden;
+    border-right: 3px solid #19e0ff;
+    animation: typing 3.5s steps(var(--ch), end),
+               blink 0.7s step-end infinite alternate;
+    display: inline-block;    /* Prevent full width */
+    max-width: max-content;   /* Constrain to content */
+}
+
+/* Remove cursor when done */
+#typewrite.done {
+    border-right: none;
+    animation: typing 3.5s steps(var(--ch), end);
+}
+
+/* FIXED: Single source of truth - uses --ch set by JS */
+@keyframes typing {
+    from { width: 0 }
+    to { width: calc(var(--ch) * 1ch) }
+}

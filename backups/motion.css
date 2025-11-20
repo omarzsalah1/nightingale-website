@@ -1,0 +1,350 @@
+/* Motion.css - Consolidated animation styles for NightingaleMD */
+
+/* 1. Logo Halo Breath Animation */
+.logo-halo {
+    position: relative;
+    display: inline-block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .logo-halo::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        box-shadow: 0 0 12px #1FC9C8;
+        animation: haloBreath 6s ease-in-out infinite;
+        pointer-events: none;
+    }
+    
+    @keyframes haloBreath {
+        0%, 100% { box-shadow: 0 0 8px rgba(31, 201, 200, 0.5); }
+        50% { box-shadow: 0 0 16px #1FC9C8; }
+    }
+}
+
+/* 2. Metric Count-up (handled by JS) */
+.metric {
+    display: inline-block;
+    min-width: 3ch;
+    font-variant-numeric: tabular-nums;
+}
+
+/* 3. Chat Bubble Fade-in Cascade */
+@media (prefers-reduced-motion: no-preference) {
+    .chat-messages .msg {
+        opacity: 0;
+        transform: translateY(8px);
+        animation: fadeChat 0.6s forwards;
+    }
+    
+    .chat-messages .msg:nth-child(1) { animation-delay: 0.1s; }
+    .chat-messages .msg:nth-child(2) { animation-delay: 0.18s; }
+    .chat-messages .msg:nth-child(3) { animation-delay: 0.26s; }
+    .chat-messages .msg:nth-child(4) { animation-delay: 0.34s; }
+    .chat-messages .msg:nth-child(5) { animation-delay: 0.42s; }
+    .chat-messages .msg:nth-child(6) { animation-delay: 0.5s; }
+    .chat-messages .msg:nth-child(7) { animation-delay: 0.58s; }
+    
+    @keyframes fadeChat {
+        to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+}
+
+/* 4. CTA Aurora Hover Effect */
+.cta-primary {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green));
+    color: var(--bg-primary);
+    font-weight: 700;
+    transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.cta-primary:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 6px 18px rgba(0, 255, 180, 0.35);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .cta-primary::before {
+        content: "";
+        position: absolute;
+        inset: -150%;
+        background: conic-gradient(
+            from 0turn,
+            #00E1FF 0 10%,
+            transparent 10% 30%,
+            #00E1FF 30% 40%,
+            transparent 40% 100%
+        );
+        animation: spin 4s linear infinite;
+        filter: blur(22px);
+        pointer-events: none;
+        opacity: 0.6;
+    }
+    
+    @media (hover: hover) {
+        .cta-primary:hover::before {
+            animation-play-state: paused;
+            opacity: 1;
+        }
+    }
+    
+    @keyframes spin {
+        to { transform: rotate(1turn); }
+    }
+}
+
+/* 5. Parallax Elements */
+[data-depth] {
+    transition: transform 0.1s ease-out;
+    will-change: transform;
+}
+
+/* 6. Background Stars Canvas */
+#bgStars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+/* Background Stars Drift Animation */
+@keyframes drift {
+    from { transform: translateY(0); }
+    to { transform: translateY(-2000px); }
+}
+
+.bg-stars {
+    background: url('/assets/stars.svg') repeat;
+    animation: drift 90s linear infinite;
+}
+
+.bg-stars::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('/assets/stars.svg') repeat;
+    animation: drift 150s linear infinite;
+    opacity: 0.5;
+}
+
+/* Sparks Canvas */
+#sparks {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+/* Additional Motion Enhancements */
+
+/* Hero Logo Pulse */
+@media (prefers-reduced-motion: no-preference) {
+    .hero-shield {
+        animation: floatGentle 8s ease-in-out infinite, heroPulse 6s ease-in-out infinite;
+    }
+    
+    @keyframes heroPulse {
+        0%, 100% { filter: drop-shadow(0 0 4px rgba(31, 201, 200, 0.7)); }
+        50% { filter: drop-shadow(0 0 10px #1FC9C8); }
+    }
+}
+
+/* CTA Button Hover Glow */
+.cta-primary:hover {
+    box-shadow: 0 0 12px 0 rgba(31, 201, 200, 0.5);
+    transform: translateY(-2px);
+}
+
+/* Smooth reveal animations */
+@media (prefers-reduced-motion: no-preference) {
+    [data-reveal] {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s ease-out;
+    }
+    
+    [data-reveal].visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Floating animation for hero elements */
+@media (prefers-reduced-motion: no-preference) {
+    .hero-shield {
+        animation: floatGentle 8s ease-in-out infinite;
+    }
+    
+    @keyframes floatGentle {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+}
+
+/* Phone mockup glow enhancement */
+@media (prefers-reduced-motion: no-preference) {
+    .phone-screen::after {
+        animation: phonePulse 2.5s ease-in-out infinite;
+    }
+    
+    @keyframes phonePulse {
+        0%, 100% { 
+            box-shadow: 0 0 0 0 rgba(31, 201, 200, 0.5);
+            opacity: 1;
+        }
+        50% { 
+            box-shadow: 0 0 0 20px rgba(31, 201, 200, 0);
+            opacity: 0.8;
+        }
+    }
+}
+
+/* Feature cards stagger animation */
+@media (prefers-reduced-motion: no-preference) {
+    .feature-visual {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    
+    .feature-visual.visible {
+        animation: slideInLeft 0.6s ease-out forwards;
+    }
+    
+    .feature-visual:nth-child(1) { animation-delay: 0s; }
+    .feature-visual:nth-child(2) { animation-delay: 0.2s; }
+    .feature-visual:nth-child(3) { animation-delay: 0.4s; }
+}
+
+/* Escalation flow animation */
+@media (prefers-reduced-motion: no-preference) {
+    .connector-line {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .connector-line::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+        animation: flowLine 2s ease-in-out infinite;
+    }
+    
+    @keyframes flowLine {
+        to { left: 100%; }
+    }
+}
+
+/* === NEW: Records Hub Animation === */
+@media (prefers-reduced-motion: no-preference) {
+    /* Hub pulse - reuse existing pulse animation */
+    .records-hub .hub {
+        animation: recordsPulse 6s ease-in-out infinite;
+    }
+    
+    .records-hub .hub-img {
+        filter: drop-shadow(0 0 20px rgba(31, 201, 200, 0.7));
+        transition: filter 0.3s ease;
+    }
+    
+    .records-hub .hub-img.flash {
+        animation: hubFlash 0.6s ease-out;
+    }
+    
+    @keyframes recordsPulse {
+        0%, 100% { 
+            filter: drop-shadow(0 0 8px rgba(31, 201, 200, 0.4));
+            transform: scale(1);
+        }
+        50% { 
+            filter: drop-shadow(0 0 20px rgba(31, 201, 200, 0.8));
+            transform: scale(1.05);
+        }
+    }
+    
+    @keyframes hubFlash {
+        0% { filter: drop-shadow(0 0 20px rgba(31, 201, 200, 0.7)); }
+        50% { filter: drop-shadow(0 0 40px rgba(31, 201, 200, 1)); }
+        100% { filter: drop-shadow(0 0 20px rgba(31, 201, 200, 0.7)); }
+    }
+    
+    /* Icon animations */
+    @keyframes fadeInRing {
+        from {
+            opacity: 0;
+            transform: translate(var(--tx), var(--ty)) scale(1.3);
+        }
+        to {
+            opacity: 1;
+            transform: translate(var(--tx), var(--ty)) scale(1);
+        }
+    }
+    
+    @keyframes converge {
+        from {
+            opacity: 1;
+            transform: translate(var(--tx), var(--ty)) scale(1);
+        }
+        to {
+            opacity: 0;
+            transform: translate(0, 0) scale(0.3);
+        }
+    }
+    
+    /* Counter animation */
+    .records-hub .counter {
+        transition: all 0.3s ease;
+    }
+    
+    .records-hub .counter.counting {
+        color: var(--accent-cyan);
+        text-shadow: 0 0 10px rgba(31, 201, 200, 0.5);
+    }
+    
+    /* Status text fade */
+    .hub-status {
+        opacity: 0;
+        transform: translateY(10px);
+        transition: all 0.6s ease;
+    }
+    
+    .hub-status.visible {
+        opacity: 0.8;
+        transform: translateY(0);
+    }
+}
+
+/* Performance optimizations */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    /* Ensure static display for reduced motion users */
+    .records-hub .sources li {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
